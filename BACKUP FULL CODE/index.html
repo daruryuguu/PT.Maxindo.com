@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PT. Maxindo Sinaga Perkasa — Solusi Distribusi Terpercaya</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 'inter': ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#F0FDF4', 100: '#DCFCE7', 200: '#BBF7D0', 300: '#86EFAC',
+              400: '#4ADE80', 500: '#22C55E', 600: '#16A34A', 700: '#15803D',
+              800: '#166534', 900: '#14532D', 950: '#052E16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1a1a1a; overflow-x: hidden; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f3f4f6; }
+    ::-webkit-scrollbar-thumb { background: rgba(22,163,74,0.4); border-radius: 3px; }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(22,163,74,0.2); }
+      50% { box-shadow: 0 0 40px rgba(22,163,74,0.4); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes count-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes borderGlow {
+      0%, 100% { border-color: rgba(22,163,74,0.2); }
+      50% { border-color: rgba(22,163,74,0.6); }
+    }
+
+    .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+    .animate-on-scroll.visible.delay-1 { transition-delay: 0.1s; }
+    .animate-on-scroll.visible.delay-2 { transition-delay: 0.2s; }
+    .animate-on-scroll.visible.delay-3 { transition-delay: 0.3s; }
+    .animate-on-scroll.visible.delay-4 { transition-delay: 0.4s; }
+    .animate-on-scroll.visible.delay-5 { transition-delay: 0.5s; }
+    .animate-on-scroll.visible.delay-6 { transition-delay: 0.6s; }
+
+    .hero-text { animation: fadeInUp 1s ease-out 0.2s both; }
+    .hero-text-2 { animation: fadeInUp 1s ease-out 0.4s both; }
+    .hero-text-3 { animation: fadeInUp 1s ease-out 0.6s both; }
+    .hero-btn { animation: fadeInUp 1s ease-out 0.8s both; }
+
+    .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(22,163,74,0.1); }
+    .glass-strong { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(22,163,74,0.15); }
+    .glass-card { background: rgba(255,255,255,0.8); backdrop-filter: blur(16px); border: 1px solid rgba(22,163,74,0.1); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .glass-card:hover { background: rgba(255,255,255,1); border-color: rgba(22,163,74,0.4); transform: translateY(-8px); box-shadow: 0 20px 60px rgba(22,163,74,0.15), 0 0 30px rgba(22,163,74,0.1); }
+
+    .gradient-text { background: linear-gradient(135deg, #ffffff 0%, #22c55e 50%, #16a34a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gradient-text-2 { background: linear-gradient(90deg, #22c55e, #16a34a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gradient-text-gold { background: linear-gradient(135deg, #f59e0b, #ef4444, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      position: relative; overflow: hidden; transition: all 0.3s ease;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(22,163,74,0.4); }
+    .btn-primary span { position: relative; z-index: 1; }
+
+    .btn-outline {
+      border: 1px solid rgba(22,163,74,0.4); background: transparent;
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover { background: rgba(22,163,74,0.1); border-color: #22c55e; transform: translateY(-2px); }
+
+    .product-card { position: relative; overflow: hidden; }
+    .product-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, #22c55e, transparent);
+      transform: scaleX(0); transition: transform 0.5s ease;
+    }
+    .product-card:hover::before { transform: scaleX(1); }
+
+    .stat-card { position: relative; }
+    .stat-card::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 2px; background: linear-gradient(90deg, #22c55e, #16a34a);
+      border-radius: 1px;
+    }
+
+    .marquee-track { display: flex; animation: marquee 30s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .hero-glow {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(22,163,74,0.15) 0%, transparent 70%);
+      filter: blur(80px); pointer-events: none;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(22,163,74,0.3), transparent);
+    }
+
+    .timeline-line {
+      position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, transparent, rgba(22,163,74,0.4), transparent);
+      transform: translateX(-50%);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .mobile-menu.open { transform: translateX(0); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+      padding: 16px 24px; border-radius: 12px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+      border: 1px solid rgba(22,163,74,0.3);
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    .img-reveal { position: relative; overflow: hidden; }
+    .img-reveal img { transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .img-reveal:hover img { transform: scale(1.08); }
+
+    .tab-active { color: #22c55e; border-color: #22c55e; }
+  </style>
+</head>
+
+<body class="font-inter">
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="block">
+            <img src="assets/logo.png" alt="PT. Maxindo Sinaga Perkasa" class="w-10 h-10 object-contain">
+            <div class="text-[10px] text-green-600 tracking-widest uppercase hidden sm:block">Perkasa</div>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex items-center gap-8">
+          <a href="#beranda" class="nav-link text-sm text-gray-700 hover:text-green-600 transition-colors">Beranda</a>
+          <a href="#tentang" class="nav-link text-sm text-gray-700 hover:text-green-600 transition-colors">Tentang Kami</a>
+          <a href="katalog.html" class="nav-link text-sm text-gray-700 hover:text-green-600 transition-colors">Produk</a>
+          <a href="#layanan" class="nav-link text-sm text-gray-700 hover:text-green-600 transition-colors">Layanan</a>
+          <a href="#proyek" class="nav-link text-sm text-gray-700 hover:text-green-600 transition-colors">Proyek</a>
+          <a href="#testimoni" class="nav-link text-sm text-gray-700 hover:text-green-600 transition-colors">Testimoni</a>
+          <a href="#kontak" class="nav-link text-sm text-gray-700 hover:text-green-600 transition-colors">Kontak</a>
+        </div>
+
+        <!-- CTA + Mobile Toggle -->
+        <div class="flex items-center gap-4">
+          <a href="https://wa.me/6287743000992" target="_blank" aria-label="Hubungi Kami via WhatsApp" class="group flex items-center gap-3 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 hover:border-[#25D366]/40 rounded-full px-5 py-2.5 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#25D366" class="shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            <span class="text-sm font-semibold text-[#25D366] tracking-wide group-hover:text-[#1ebe5a] transition-colors duration-300">Hubungi Kami</span>
+          </a>
+          <button id="menuToggle" class="lg:hidden w-10 h-10 rounded-xl glass flex items-center justify-center">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-white backdrop-blur-xl">
+    <div class="flex flex-col h-full">
+      <div class="flex items-center justify-between px-6 h-20">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center font-bold text-lg">M</div>
+          <div>
+            <div class="text-sm font-semibold">PT. Maxindo Sinaga</div>
+            <div class="text-[10px] text-green-600 tracking-widest uppercase">Perkasa</div>
+          </div>
+        </div>
+        <button id="menuClose" class="w-10 h-10 rounded-xl glass flex items-center justify-center">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="flex-1 flex flex-col justify-center px-8 gap-6">
+        <a href="#beranda" class="mobile-nav-link text-3xl font-semibold text-gray-700 hover:text-green-600 transition-colors">Beranda</a>
+        <a href="#tentang" class="mobile-nav-link text-3xl font-semibold text-gray-700 hover:text-green-600 transition-colors">Tentang Kami</a>
+        <a href="katalog.html" class="mobile-nav-link text-3xl font-semibold text-gray-700 hover:text-green-600 transition-colors">Produk</a>
+        <a href="#layanan" class="mobile-nav-link text-3xl font-semibold text-gray-700 hover:text-green-600 transition-colors">Layanan</a>
+        <a href="#proyek" class="mobile-nav-link text-3xl font-semibold text-gray-700 hover:text-green-600 transition-colors">Proyek</a>
+        <a href="#testimoni" class="mobile-nav-link text-3xl font-semibold text-gray-700 hover:text-green-600 transition-colors">Testimoni</a>
+        <a href="#kontak" class="mobile-nav-link text-3xl font-semibold text-gray-700 hover:text-green-600 transition-colors">Kontak</a>
+        <div class="pt-6">
+          <a href="https://wa.me/6287743000992" target="_blank" aria-label="Hubungi Kami via WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#25D366">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section id="beranda" class="relative min-h-screen flex items-center overflow-hidden bg-white">
+    <!-- BG Effects -->
+    <div class="hero-glow" style="top:-200px; left:-100px;"></div>
+    <div class="hero-glow" style="bottom:-200px; right:-100px; background: radial-gradient(circle, rgba(34,197,94,0.1) 0%, transparent 70%);"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 50%, rgba(22,163,74,0.05) 0%, transparent 60%);"></div>
+
+    <!-- Grid Pattern -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(22,163,74,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(22,163,74,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-20 w-full">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Left Content -->
+        <div>
+          <div class="hero-text inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span class="text-xs font-medium text-green-600 tracking-wide">Distributor Terpercaya Sejak 2010</span>
+          </div>
+
+          <h1 class="hero-text-2 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[0.95] tracking-tight mb-6 text-gray-800">
+            Mitra Distribusi
+            <span class="gradient-text block">Terdepan untuk</span>
+            Bisnis Anda
+          </h1>
+
+          <p class="hero-text-3 text-base lg:text-lg text-gray-600 leading-relaxed max-w-xl mb-10">
+            PT. Maxindo Sinaga Perkasa menyediakan solusi distribusi dan supply chain yang terintegrasi, membantu bisnis Anda berkembang dengan efisien dan terukur.
+          </p>
+
+          <div class="hero-btn flex flex-wrap gap-4">
+            <a href="#produk" class="btn-primary px-8 py-3.5 rounded-xl text-sm font-medium inline-flex items-center gap-2">
+              <span>Jelajahi Produk</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#tentang" class="btn-outline px-8 py-3.5 rounded-xl text-sm font-medium inline-flex items-center gap-2">
+              <i data-lucide="play-circle" class="w-4 h-4"></i>
+              <span>Tentang Kami</span>
+            </a>
+          </div>
+
+          <!-- Mini Stats -->
+          <div class="hero-btn flex gap-8 mt-12 pt-8 border-t border-gray-200">
+            <div>
+              <div class="text-2xl lg:text-3xl font-bold gradient-text-2" data-count="500">500+</div>
+              <div class="text-xs text-gray-500 mt-1">Klien Aktif</div>
+            </div>
+            <div>
+              <div class="text-2xl lg:text-3xl font-bold gradient-text-2" data-count="14">14+</div>
+              <div class="text-xs text-gray-500 mt-1">Tahun Pengalaman</div>
+            </div>
+            <div>
+              <div class="text-2xl lg:text-3xl font-bold gradient-text-2" data-count="34">34</div>
+              <div class="text-xs text-gray-500 mt-1">Provinsi Jangkauan</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right - Hero Visual -->
+        <div class="relative hidden lg:block">
+          <div class="relative" style="animation: float 6s ease-in-out infinite;">
+            <div class="rounded-3xl overflow-hidden border border-gray-200 shadow-2xl">
+              <img src="assets/toko.png" alt="PT Maxindo Sinaga Perkasa" class="w-full h-[580px] object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent rounded-3xl"></div>
+            </div>
+
+            <!-- Floating Cards -->
+            <div class="absolute -left-16 top-1/4 glass-strong rounded-2xl p-4 animate-on-scroll" style="animation: float 5s ease-in-out infinite 1s;">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
+                  <i data-lucide="trending-up" class="w-5 h-5 text-green-500"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-600">Pertumbuhan</div>
+                  <div class="text-sm font-semibold text-green-600">+42% YoY</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute -right-12 bottom-1/4 glass-strong rounded-2xl p-4 animate-on-scroll" style="animation: float 5s ease-in-out infinite 2s;">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
+                  <i data-lucide="package-check" class="w-5 h-5 text-green-500"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-600">Pengiriman</div>
+                  <div class="text-sm font-semibold">10K+ / Bulan</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+      <span class="text-[10px] tracking-widest uppercase text-gray-500">Scroll</span>
+      <div class="w-5 h-8 rounded-full border border-gray-300 flex justify-center pt-1.5">
+        <div class="w-1 h-2 rounded-full bg-gray-500 animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PARTNER MARQUEE ========== -->
+  <section class="relative py-12 border-y border-gray-200">
+    <div class="max-w-7xl mx-auto px-6 mb-6">
+      <p class="text-center text-xs text-gray-500 tracking-widest uppercase">Dipercaya oleh perusahaan-perusahaan terkemuka</p>
+    </div>
+    <div class="overflow-hidden">
+      <div class="marquee-track">
+        <div class="flex items-center gap-16 px-8 shrink-0">
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Astra International</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Unilever Indonesia</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Indofood Sukses Makmur</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Kalbe Farma</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Gudang Garam</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Semen Indonesia</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Astra Honda Motor</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Telkom Indonesia</div>
+        </div>
+        <div class="flex items-center gap-16 px-8 shrink-0">
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Astra International</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Unilever Indonesia</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Indofood Sukses Makmur</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Kalbe Farma</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Gudang Garam</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Semen Indonesia</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Astra Honda Motor</div>
+          <div class="text-gray-400 font-semibold text-lg tracking-tight whitespace-nowrap">PT Telkom Indonesia</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TENTANG KAMI ========== -->
+  <section id="tentang" class="relative py-24 lg:py-32 bg-white">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-green-500/5 blur-[120px] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+        <div class="animate-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-green-600 mb-4">
+            <i data-lucide="building-2" class="w-3 h-3"></i> Tentang Kami
+          </div>
+          <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight leading-[1.05] text-gray-800">
+            Lebih dari Seabad <br class="hidden lg:block"><span class="gradient-text">Pengalaman Industri</span>
+          </h2>
+        </div>
+        <p class="text-gray-600 max-w-md text-sm leading-relaxed animate-on-scroll delay-1">
+          Didirikan pada tahun 2010, PT. Maxindo Sinaga Perkasa telah menjadi pilar utama dalam industri distribusi nasional Indonesia.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Left - Image Grid -->
+        <div class="relative animate-on-scroll delay-1">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="img-reveal rounded-2xl overflow-hidden border border-gray-200">
+                <img src="https://picsum.photos/seed/maxindo-about1/400/500.jpg" alt="Gudang Maxindo" class="w-full h-64 object-cover">
+              </div>
+              <div class="glass-card rounded-2xl p-5">
+                <div class="text-3xl font-bold gradient-text-2 mb-1">14+</div>
+                <div class="text-xs text-gray-500">Tahun Berpengalaman</div>
+              </div>
+            </div>
+            <div class="space-y-4 pt-8">
+              <div class="glass-card rounded-2xl p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <i data-lucide="award" class="w-4 h-4 text-yellow-500"></i>
+                  <span class="text-xs text-gray-600">Sertifikasi</span>
+                </div>
+                <div class="text-sm font-medium">ISO 9001:2015</div>
+              </div>
+              <div class="img-reveal rounded-2xl overflow-hidden border border-gray-200">
+                <img src="https://picsum.photos/seed/maxindo-about2/400/500.jpg" alt="Tim Maxindo" class="w-full h-64 object-cover">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right - Content -->
+        <div class="space-y-8">
+          <div class="animate-on-scroll delay-2">
+            <h3 class="text-xl lg:text-2xl font-semibold mb-4 tracking-tight text-gray-800">Membangun Ekosistem Distribusi yang Tangguh</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              PT. Maxindo Sinaga Perkasa adalah perusahaan distribusi nasional yang bergerak di bidang penyediaan produk-produk industri, consumer goods, dan bahan baku strategis. Dengan jaringan distribusi yang luas mencakup 34 provinsi di Indonesia, kami memastikan setiap produk sampai ke tangan yang tepat, tepat waktu.
+            </p>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Didukung oleh lebih dari 500 karyawan profesional dan gudang logistik modern di 8 kota besar, kami terus berinovasi untuk memberikan layanan terbaik bagi seluruh mitra bisnis kami.
+            </p>
+          </div>
+
+          <!-- Feature List -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-on-scroll delay-3">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium mb-0.5">Jaringan Nasional</div>
+                <div class="text-xs text-gray-500">34 provinsi terjangkau</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium mb-0.5">Gudang Modern</div>
+                <div class="text-xs text-gray-500">8 pusat logistik</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium mb-0.5">Sertifikasi ISO</div>
+                <div class="text-xs text-gray-500">ISO 9001:2015</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium mb-0.5">Tim Profesional</div>
+                <div class="text-xs text-gray-500">500+ karyawan ahli</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#layanan" class="inline-flex items-center gap-2 text-sm font-medium text-green-600 hover:text-green-700 transition-colors animate-on-scroll delay-4">
+            Pelajari lebih lanjut <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== STATISTIK ========== -->
+  <section class="py-24 lg:py-32 relative bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="stat-card glass-card rounded-2xl p-8 text-center animate-on-scroll">
+          <div class="text-4xl lg:text-5xl font-bold gradient-text-2 mb-2 counter" data-target="500">0</div>
+          <div class="text-xs text-gray-500 tracking-wide uppercase">Klien Aktif</div>
+        </div>
+        <div class="stat-card glass-card rounded-2xl p-8 text-center animate-on-scroll delay-1">
+          <div class="text-4xl lg:text-5xl font-bold gradient-text-2 mb-2 counter" data-target="12000">0</div>
+          <div class="text-xs text-gray-500 tracking-wide uppercase">Pengiriman / Bulan</div>
+        </div>
+        <div class="stat-card glass-card rounded-2xl p-8 text-center animate-on-scroll delay-2">
+          <div class="text-4xl lg:text-5xl font-bold gradient-text-2 mb-2 counter" data-target="850">0</div>
+          <div class="text-xs text-gray-500 tracking-wide uppercase">SKU Produk</div>
+        </div>
+        <div class="stat-card glass-card rounded-2xl p-8 text-center animate-on-scroll delay-3">
+          <div class="text-4xl lg:text-5xl font-bold gradient-text-2 mb-2 counter" data-target="34">0</div>
+          <div class="text-xs text-gray-500 tracking-wide uppercase">Provinsi Jangkauan</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== PRODUK ========== -->
+  <section id="produk" class="py-24 lg:py-32 relative">
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-green-500/5 blur-[120px] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-green-600 mb-4 animate-on-scroll">
+          <i data-lucide="boxes" class="w-3 h-3"></i> Produk Kami
+        </div>
+        <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mb-4 animate-on-scroll delay-1">
+          Lini Produk <span class="gradient-text">Unggulan</span>
+        </h2>
+        <p class="text-gray-600 text-sm leading-relaxed animate-on-scroll delay-2">
+          Kami menyediakan berbagai kategori produk berkualitas tinggi untuk memenuhi kebutuhan industri dan konsumen di seluruh Indonesia.
+        </p>
+      </div>
+
+      <!-- Product Tabs -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12 animate-on-scroll delay-2">
+        <button class="product-tab tab-active px-5 py-2 rounded-xl text-sm font-medium border border-transparent transition-all" data-tab="all">Semua</button>
+        <button class="product-tab px-5 py-2 rounded-xl text-sm font-medium text-gray-600 border border-transparent hover:border-gray-200 transition-all" data-tab="industrial">Industrial</button>
+        <button class="product-tab px-5 py-2 rounded-xl text-sm font-medium text-gray-600 border border-transparent hover:border-gray-200 transition-all" data-tab="consumer">Consumer</button>
+        <button class="product-tab px-5 py-2 rounded-xl text-sm font-medium text-gray-600 border border-transparent hover:border-gray-200 transition-all" data-tab="chemical">Chemical</button>
+        <button class="product-tab px-5 py-2 rounded-xl text-sm font-medium text-gray-600 border border-transparent hover:border-gray-200 transition-all" data-tab="packaging">Packaging</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Product 1 -->
+        <div class="product-card glass-card rounded-2xl overflow-hidden animate-on-scroll delay-1" data-category="industrial">
+          <div class="img-reveal aspect-[4/3]">
+            <img src="https://picsum.photos/seed/maxindo-p1/600/450.jpg" alt="Bearing & Seal" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded-md bg-green-500/10 text-green-600 text-[10px] font-medium uppercase tracking-wider">Industrial</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Bearing & Seal Industri</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Bearing berkualitas tinggi dari merek ternama untuk aplikasi industri berat dan ringan.</p>
+            <a href="katalog.html" class="inline-flex items-center gap-1.5 text-sm text-green-600 hover:text-green-500 transition-colors">
+              Detail Produk <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card glass-card rounded-2xl overflow-hidden animate-on-scroll delay-2" data-category="consumer">
+          <div class="img-reveal aspect-[4/3]">
+            <img src="https://picsum.photos/seed/maxindo-p2/600/450.jpg" alt="Consumer Goods" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded-md bg-green-500/10 text-green-500 text-[10px] font-medium uppercase tracking-wider">Consumer</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Consumer Goods Premium</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Rangkaian produk kebutuhan rumah tangga premium dengan brand lokal dan internasional.</p>
+            <a href="katalog.html" class="inline-flex items-center gap-1.5 text-sm text-green-600 hover:text-green-500 transition-colors">
+              Detail Produk <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card glass-card rounded-2xl overflow-hidden animate-on-scroll delay-3" data-category="chemical">
+          <div class="img-reveal aspect-[4/3]">
+            <img src="https://picsum.photos/seed/maxindo-p3/600/450.jpg" alt="Bahan Kimia" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded-md bg-green-500/10 text-green-400 text-[10px] font-medium uppercase tracking-wider">Chemical</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Bahan Kimia Industri</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Solvent, additive, dan bahan kimia proses dengan standar keamanan internasional.</p>
+            <a href="katalog.html" class="inline-flex items-center gap-1.5 text-sm text-green-600 hover:text-green-500 transition-colors">
+              Detail Produk <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card glass-card rounded-2xl overflow-hidden animate-on-scroll delay-1" data-category="packaging">
+          <div class="img-reveal aspect-[4/3]">
+            <img src="https://picsum.photos/seed/maxindo-p4/600/450.jpg" alt="Packaging" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded-md bg-yellow-500/10 text-yellow-400 text-[10px] font-medium uppercase tracking-wider">Packaging</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Material Packaging</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Kardus, plastik, dan material kemasan lainnya dengan berbagai ukuran dan spesifikasi.</p>
+            <a href="katalog.html" class="inline-flex items-center gap-1.5 text-sm text-green-600 hover:text-green-500 transition-colors">
+              Detail Produk <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card glass-card rounded-2xl overflow-hidden animate-on-scroll delay-2" data-category="industrial">
+          <div class="img-reveal aspect-[4/3]">
+            <img src="https://picsum.photos/seed/maxindo-p5/600/450.jpg" alt="Otomotif Parts" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded-md bg-green-500/10 text-green-600 text-[10px] font-medium uppercase tracking-wider">Industrial</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Suku Cadang Otomotif</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Komponen dan spare part kendaraan roda dua dan roda empat dengan kualitas OEM.</p>
+            <a href="katalog.html" class="inline-flex items-center gap-1.5 text-sm text-green-600 hover:text-green-500 transition-colors">
+              Detail Produk <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card glass-card rounded-2xl overflow-hidden animate-on-scroll delay-3" data-category="consumer">
+          <div class="img-reveal aspect-[4/3]">
+            <img src="https://picsum.photos/seed/maxindo-p6/600/450.jpg" alt="Elektronik" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded-md bg-green-500/10 text-green-500 text-[10px] font-medium uppercase tracking-wider">Consumer</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Perlengkapan Elektronik</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Aksesoris dan komponen elektronik untuk segmen consumer dan semi-industrial.</p>
+            <a href="katalog.html" class="inline-flex items-center gap-1.5 text-sm text-green-600 hover:text-green-500 transition-colors">
+              Detail Produk <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== LAYANAN ========== -->
+  <section id="layanan" class="py-24 lg:py-32 relative">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-green-500/3 blur-[150px] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-green-600 mb-4 animate-on-scroll">
+          <i data-lucide="settings" class="w-3 h-3"></i> Layanan Kami
+        </div>
+        <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mb-4 animate-on-scroll delay-1">
+          Solusi End-to-End <span class="gradient-text">untuk Bisnis</span>
+        </h2>
+        <p class="text-gray-600 text-sm leading-relaxed animate-on-scroll delay-2">
+          Dari procurement hingga last-mile delivery, kami menyediakan layanan terintegrasi yang mempercepat dan menyederhanakan rantai pasok Anda.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Service 1 -->
+        <div class="glass-card rounded-2xl p-8 group animate-on-scroll delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 flex items-center justify-center mb-6 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.2)] transition-shadow duration-500">
+            <i data-lucide="truck" class="w-6 h-6 text-green-600"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Distribusi Nasional</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">Jaringan distribusi yang menjangkau seluruh Indonesia dengan armada sendiri dan mitra logistik terpercaya.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-purple-500/60"></i> 34 provinsi terjangkau</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-purple-500/60"></i> Real-time tracking</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-purple-500/60"></i> SLA pengiriman terukur</li>
+          </ul>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="glass-card rounded-2xl p-8 group animate-on-scroll delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 flex items-center justify-center mb-6 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-shadow duration-500">
+            <i data-lucide="warehouse" class="w-6 h-6 text-green-500"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Warehousing & Fulfillment</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">Gudang modern dengan sistem WMS terintegrasi untuk pengelolaan inventory yang akurat dan efisien.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-blue-500/60"></i> 8 pusat gudang strategis</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-blue-500/60"></i> Sistem WMS canggih</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-blue-500/60"></i> Cross-docking ready</li>
+          </ul>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="glass-card rounded-2xl p-8 group animate-on-scroll delay-3">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-green-500/5 flex items-center justify-center mb-6 group-hover:shadow-[0_0_30px_rgba(34,197,94,0.2)] transition-shadow duration-500">
+            <i data-lucide="bar-chart-3" class="w-6 h-6 text-green-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Supply Chain Consulting</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">Konsultasi strategis untuk mengoptimalkan rantai pasok, mengurangi biaya, dan meningkatkan efisiensi.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-green-500/60"></i> Analisis supply chain</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-green-500/60"></i> Cost optimization</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-green-500/60"></i> Vendor management</li>
+          </ul>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="glass-card rounded-2xl p-8 group animate-on-scroll delay-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 flex items-center justify-center mb-6 group-hover:shadow-[0_0_30px_rgba(234,179,8,0.2)] transition-shadow duration-500">
+            <i data-lucide="shield-check" class="w-6 h-6 text-yellow-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Quality Assurance</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">Sistem QC ketat di setiap tahap untuk memastikan produk yang didistribusikan memenuhi standar tertinggi.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-yellow-500/60"></i> Inspeksi multi-tahap</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-yellow-500/60"></i> Lab testing tersertifikasi</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-yellow-500/60"></i> Compliance tracking</li>
+          </ul>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="glass-card rounded-2xl p-8 group animate-on-scroll delay-5">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-pink-500/5 flex items-center justify-center mb-6 group-hover:shadow-[0_0_30px_rgba(236,72,153,0.2)] transition-shadow duration-500">
+            <i data-lucide="monitor-smartphone" class="w-6 h-6 text-pink-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Digital Platform</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">Platform digital untuk pemesanan, tracking, dan manajemen order yang terintegrasi secara real-time.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-pink-500/60"></i> Portal B2B online</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-pink-500/60"></i> API integration</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-pink-500/60"></i> Dashboard analytics</li>
+          </ul>
+        </div>
+
+        <!-- Service 6 -->
+        <div class="glass-card rounded-2xl p-8 group animate-on-scroll delay-6">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 flex items-center justify-center mb-6 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] transition-shadow duration-500">
+            <i data-lucide="headphones" class="w-6 h-6 text-cyan-400"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">After-Sales Support</h3>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">Tim support responsif yang siap membantu menyelesaikan kendala dan pertanyaan kapan saja.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-500/60"></i> 24/7 call center</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-500/60"></i> Dedicated account manager</li>
+            <li class="flex items-center gap-2 text-xs text-gray-500"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-500/60"></i> Warranty handling</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== MENGAPA MEMILIH KAMI ========== -->
+  <section class="py-24 lg:py-32 relative overflow-hidden">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 70% 30%, rgba(168,85,247,0.05) 0%, transparent 60%);"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Left -->
+        <div class="animate-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-green-600 mb-4">
+            <i data-lucide="star" class="w-3 h-3"></i> Keunggulan Kami
+          </div>
+          <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mb-6 leading-[1.05]">
+            Mengapa Bisnis <span class="gradient-text">Memilih Kami?</span>
+          </h2>
+          <p class="text-gray-600 text-sm leading-relaxed mb-8">
+            Kami tidak hanya mendistribusikan produk — kami membangun kemitraan jangka panjang yang membantu bisnis Anda tumbuh secara berkelanjutan.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0" style="animation: pulse-glow 3s ease-in-out infinite;">
+                <i data-lucide="zap" class="w-5 h-5 text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Kecepatan Pengiriman Terjamin</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">Rata-rata lead time 2-5 hari kerja ke seluruh kota besar di Indonesia dengan tingkat ketepatan waktu 98.5%.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0" style="animation: pulse-glow 3s ease-in-out infinite 0.5s;">
+                <i data-lucide="lock" class="w-5 h-5 text-green-500"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Keamanan & Kepatuhan</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">Sertifikasi ISO 9001:2015, SOP ketat, dan asuransi pengiriman menyeluruh untuk setiap shipment.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0" style="animation: pulse-glow 3s ease-in-out infinite 1s;">
+                <i data-lucide="handshake" class="w-5 h-5 text-green-400"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1">Kemitraan Transparan</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">Laporan real-time, harga kompetitif, dan kontrak fleksibel yang disesuaikan dengan kebutuhan bisnis Anda.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right - Visual -->
+        <div class="relative animate-on-scroll delay-2">
+          <div class="rounded-3xl overflow-hidden border border-gray-200">
+            <img src="https://picsum.photos/seed/maxindo-why/700/800.jpg" alt="Keunggulan Maxindo" class="w-full h-[500px] lg:h-[600px] object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-white via-black/20 to-transparent rounded-3xl"></div>
+          </div>
+          <!-- Overlay Stats -->
+          <div class="absolute bottom-6 left-6 right-6 grid grid-cols-3 gap-3">
+            <div class="glass-strong rounded-xl p-4 text-center">
+              <div class="text-xl font-bold gradient-text-2">98.5%</div>
+              <div class="text-[10px] text-gray-600 mt-0.5">On-Time Rate</div>
+            </div>
+            <div class="glass-strong rounded-xl p-4 text-center">
+              <div class="text-xl font-bold gradient-text-2">2-5</div>
+              <div class="text-[10px] text-gray-600 mt-0.5">Hari Pengiriman</div>
+            </div>
+            <div class="glass-strong rounded-xl p-4 text-center">
+              <div class="text-xl font-bold gradient-text-2">99.8%</div>
+              <div class="text-[10px] text-gray-600 mt-0.5">Order Accuracy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== PROYEK / PORTFOLIO ========== -->
+  <section id="proyek" class="py-24 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-green-600 mb-4 animate-on-scroll">
+          <i data-lucide="briefcase" class="w-3 h-3"></i> Proyek Unggulan
+        </div>
+        <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mb-4 animate-on-scroll delay-1">
+          Proyek yang Telah <span class="gradient-text">Kami Selesaikan</span>
+        </h2>
+        <p class="text-gray-600 text-sm leading-relaxed animate-on-scroll delay-2">
+          Beberapa proyek besar yang menunjukkan kapabilitas dan keandalan kami dalam menangani kebutuhan distribusi skala nasional.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Project 1 -->
+        <div class="glass-card rounded-2xl overflow-hidden group animate-on-scroll delay-1">
+          <div class="img-reveal aspect-video">
+            <img src="https://picsum.photos/seed/maxindo-proj1/800/450.jpg" alt="Proyek Distribusi Otomotif" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <span class="px-2 py-1 rounded-md bg-green-500/20 text-green-500 text-[10px] font-medium uppercase tracking-wider">Otomotif</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold mb-2">Distribusi Suku Cadang OEM — PT Astra Group</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Penanganan distribusi 2.000+ SKU suku cadang otomotif ke 150+ dealer di seluruh Jawa dan Sumatera.</p>
+            <div class="flex items-center gap-4 text-xs text-gray-500">
+              <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 2023</span>
+              <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Jawa & Sumatera</span>
+              <span class="flex items-center gap-1"><i data-lucide="package" class="w-3 h-3"></i> 2.000+ SKU</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="glass-card rounded-2xl overflow-hidden group animate-on-scroll delay-2">
+          <div class="img-reveal aspect-video">
+            <img src="https://picsum.photos/seed/maxindo-proj2/800/450.jpg" alt="Proyek FMCG" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <span class="px-2 py-1 rounded-md bg-green-500/20 text-blue-300 text-[10px] font-medium uppercase tracking-wider">FMCG</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold mb-2">National Rollout Program — Brand Consumer Multinasional</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Rollout produk baru ke 5.000+ retail outlet dalam 3 bulan dengan strategi distribusi bertahap.</p>
+            <div class="flex items-center gap-4 text-xs text-gray-500">
+              <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 2024</span>
+              <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Nasional</span>
+              <span class="flex items-center gap-1"><i data-lucide="store" class="w-3 h-3"></i> 5.000+ Outlet</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="glass-card rounded-2xl overflow-hidden group animate-on-scroll delay-3">
+          <div class="img-reveal aspect-video">
+            <img src="https://picsum.photos/seed/maxindo-proj3/800/450.jpg" alt="Proyek Chemical" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <span class="px-2 py-1 rounded-md bg-green-500/20 text-green-300 text-[10px] font-medium uppercase tracking-wider">Chemical</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold mb-2">Supply Chain Optimization — Industri Petrokimia</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Optimalisasi rantai pasok bahan kimia yang mengurangi biaya logistik hingga 27% dalam 6 bulan pertama.</p>
+            <div class="flex items-center gap-4 text-xs text-gray-500">
+              <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 2023</span>
+              <span class="flex items-center gap-1"><i data-lucide="trending-down" class="w-3 h-3"></i> -27% Biaya</span>
+              <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> 6 Bulan</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="glass-card rounded-2xl overflow-hidden group animate-on-scroll delay-4">
+          <div class="img-reveal aspect-video">
+            <img src="https://picsum.photos/seed/maxindo-proj4/800/450.jpg" alt="Proyek Gudang" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <span class="px-2 py-1 rounded-md bg-yellow-500/20 text-yellow-300 text-[10px] font-medium uppercase tracking-wider">Logistics</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold mb-2">Mega Warehouse Setup — Cikarang Logistics Hub</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">Setup dan operasional gudang seluas 15.000 m² dengan kapasitas 50.000 palet dan sistem otomasi penuh.</p>
+            <div class="flex items-center gap-4 text-xs text-gray-500">
+              <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 2024</span>
+              <span class="flex items-center gap-1"><i data-lucide="maximize-2" class="w-3 h-3"></i> 15.000 m²</span>
+              <span class="flex items-center gap-1"><i data-lucide="layers" class="w-3 h-3"></i> 50K Palet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== TESTIMONI ========== -->
+  <section id="testimoni" class="py-24 lg:py-32 relative">
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] rounded-full bg-green-500/5 blur-[120px] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-green-600 mb-4 animate-on-scroll">
+          <i data-lucide="message-circle" class="w-3 h-3"></i> Testimoni
+        </div>
+        <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mb-4 animate-on-scroll delay-1">
+          Apa Kata <span class="gradient-text">Mitra Kami</span>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Testimonial 1 -->
+        <div class="glass-card rounded-2xl p-8 animate-on-scroll delay-1">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+          </div>
+          <p class="text-sm text-gray-700 leading-relaxed mb-6">"Maxindo benar-benar mengubah cara kami mengelola distribusi. Waktu pengiriman berkurang 40% dan biaya logistik turun signifikan. Sangat direkomendasikan."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-sm font-semibold">BW</div>
+            <div>
+              <div class="text-sm font-medium">Budi Wicaksono</div>
+              <div class="text-xs text-gray-500">Supply Chain Director, PT Astra Group</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="glass-card rounded-2xl p-8 animate-on-scroll delay-2">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+          </div>
+          <p class="text-sm text-gray-700 leading-relaxed mb-6">"Profesionalisme tinggi dan sistem tracking real-time mereka sangat membantu. Tim support juga sangat responsif, 24/7 selalu siap membantu."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-cyan-500 flex items-center justify-center text-sm font-semibold">SR</div>
+            <div>
+              <div class="text-sm font-medium">Sari Rahayu</div>
+              <div class="text-xs text-gray-500">GM Operations, PT Unilever Indonesia</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="glass-card rounded-2xl p-8 animate-on-scroll delay-3">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-500 text-yellow-500"></i>
+            <i data-lucide="star" class="w-4 h-4 text-yellow-500"></i>
+          </div>
+          <p class="text-sm text-gray-700 leading-relaxed mb-6">"Kami sudah bekerja sama selama 5 tahun dan tidak pernah kecewa. Konsistensi kualitas layanan dan kemampuan adaptasi mereka terhadap kebutuhan kami luar biasa."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-500 to-red-500 flex items-center justify-center text-sm font-semibold">AH</div>
+            <div>
+              <div class="text-sm font-medium">Andi Hartono</div>
+              <div class="text-xs text-gray-500">CEO, PT Nusantara Chemical</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== CTA SECTION ========== -->
+  <section class="py-24 lg:py-32 relative overflow-hidden">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(168,85,247,0.08) 0%, transparent 60%);"></div>
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
+      <div class="animate-on-scroll">
+        <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mb-6">
+          Siap Meningkatkan <span class="gradient-text">Rantai Pasok</span> Anda?
+        </h2>
+        <p class="text-gray-600 text-base leading-relaxed mb-10 max-w-2xl mx-auto">
+          Hubungi tim kami untuk konsultasi gratis dan temukan bagaimana PT. Maxindo Sinaga Perkasa dapat membantu bisnis Anda tumbuh lebih cepat dan lebih efisien.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="#kontak" class="btn-primary px-10 py-4 rounded-xl text-sm font-medium inline-flex items-center gap-2">
+            <span>Mulai Konsultasi Gratis</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="tel:+622112345678" class="btn-outline px-10 py-4 rounded-xl text-sm font-medium inline-flex items-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>(021) 1234-5678</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== BERITA ========== -->
+  <section class="py-24 lg:py-32 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+        <div class="animate-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-green-600 mb-4">
+            <i data-lucide="newspaper" class="w-3 h-3"></i> Berita & Artikel
+          </div>
+          <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight">Kabar <span class="gradient-text">Terbaru</span></h2>
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 text-sm text-green-600 hover:text-green-500 transition-colors animate-on-scroll delay-1">
+          Lihat semua artikel <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- News 1 -->
+        <div class="glass-card rounded-2xl overflow-hidden animate-on-scroll delay-1">
+          <div class="img-reveal aspect-video">
+            <img src="https://picsum.photos/seed/maxindo-news1/600/340.jpg" alt="Berita 1" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-[10px] text-green-600 font-medium uppercase tracking-wider">Perusahaan</span>
+              <span class="text-gray-400">•</span>
+              <span class="text-[10px] text-gray-500">15 Jan 2025</span>
+            </div>
+            <h3 class="font-semibold mb-2 leading-snug">Maxindo Perluas Jaringan Gudang ke Kalimantan & Sulawesi</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Ekspansi strategis untuk memperkuat jangkauan distribusi di wilayah Indonesia Timur...</p>
+          </div>
+        </div>
+
+        <!-- News 2 -->
+        <div class="glass-card rounded-2xl overflow-hidden animate-on-scroll delay-2">
+          <div class="img-reveal aspect-video">
+            <img src="https://picsum.photos/seed/maxindo-news2/600/340.jpg" alt="Berita 2" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-[10px] text-green-500 font-medium uppercase tracking-wider">Teknologi</span>
+              <span class="text-gray-400">•</span>
+              <span class="text-[10px] text-gray-500">8 Jan 2025</span>
+            </div>
+            <h3 class="font-semibold mb-2 leading-snug">Implementasi AI untuk Prediksi Demand di Supply Chain</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Penggunaan machine learning untuk meningkatkan akurasi peramalan permintaan produk...</p>
+          </div>
+        </div>
+
+        <!-- News 3 -->
+        <div class="glass-card rounded-2xl overflow-hidden animate-on-scroll delay-3">
+          <div class="img-reveal aspect-video">
+            <img src="https://picsum.photos/seed/maxindo-news3/600/340.jpg" alt="Berita 3" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-[10px] text-green-400 font-medium uppercase tracking-wider">Penghargaan</span>
+              <span class="text-gray-400">•</span>
+              <span class="text-[10px] text-gray-500">28 Des 2024</span>
+            </div>
+            <h3 class="font-semibold mb-2 leading-snug">Meraih Penghargaan Best Logistics Partner 2024</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Pengakuan atas inovasi dan konsistensi kualitas layanan distribusi nasional...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ========== KONTAK ========== -->
+  <section id="kontak" class="py-24 lg:py-32 relative">
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-green-500/5 blur-[120px] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-green-600 mb-4 animate-on-scroll">
+          <i data-lucide="message-circle" class="w-3 h-3"></i> Hubungi Kami
+        </div>
+        <h2 class="text-3xl lg:text-5xl font-semibold tracking-tight mb-4 animate-on-scroll delay-1">
+          Mari <span class="gradient-text">Berdiskusi</span>
+        </h2>
+        <p class="text-gray-600 text-sm leading-relaxed animate-on-scroll delay-2">
+          Isi formulir di bawah atau hubungi kami langsung. Tim kami akan merespons dalam waktu 24 jam kerja.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-8">
+        <!-- Contact Info -->
+        <div class="lg:col-span-2 space-y-6 animate-on-scroll delay-1">
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="map-pin" class="w-5 h-5 text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Kantor Pusat</h4>
+                <p class="text-xs text-gray-600 leading-relaxed">Jl. Raya Industri Blok A No. 15<br>Kawasan Industri MM2100<br>Bekasi 17520, Jawa Barat</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="message-circle" class="w-5 h-5 text-green-500"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Telepon</h4>
+                <p class="text-xs text-gray-600">(021) 1234-5678</p>
+                <p class="text-xs text-gray-600">+62 812-3456-7890 (WhatsApp)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="mail" class="w-5 h-5 text-green-400"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Email</h4>
+                <p class="text-xs text-gray-600">info@maxindosinaga.co.id</p>
+                <p class="text-xs text-gray-600">sales@maxindosinaga.co.id</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-yellow-500/10 flex items-center justify-center shrink-0">
+                <i data-lucide="clock" class="w-5 h-5 text-yellow-400"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-sm mb-1">Jam Operasional</h4>
+                <p class="text-xs text-gray-600">Senin - Jumat: 08.00 - 17.00 WIB</p>
+                <p class="text-xs text-gray-600">Sabtu: 08.00 - 12.00 WIB</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="lg:col-span-3 animate-on-scroll delay-2">
+          <form id="contactForm" class="glass-card rounded-2xl p-8">
+            <div class="grid sm:grid-cols-2 gap-5 mb-5">
+              <div>
+                <label class="block text-xs font-medium text-gray-600 mb-2">Nama Lengkap *</label>
+                <input type="text" name="name" required class="w-full bg-white/5 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/20 transition-all" placeholder="Masukkan nama Anda">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 mb-2">Perusahaan</label>
+                <input type="text" name="company" class="w-full bg-white/5 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/20 transition-all" placeholder="Nama perusahaan">
+              </div>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-5 mb-5">
+              <div>
+                <label class="block text-xs font-medium text-gray-600 mb-2">Email *</label>
+                <input type="email" name="email" required class="w-full bg-white/5 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/20 transition-all" placeholder="email@perusahaan.com">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 mb-2">No. Telepon *</label>
+                <input type="tel" name="phone" required class="w-full bg-white/5 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/20 transition-all" placeholder="+62 812-xxxx-xxxx">
+              </div>
+            </div>
+            <div class="mb-5">
+              <label class="block text-xs font-medium text-gray-600 mb-2">Subjek</label>
+              <select name="subject" class="w-full bg-white/5 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/20 transition-all appearance-none" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23737373%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>'); background-repeat: no-repeat; background-position: right 16px center;">
+                <option value="">Pilih subjek...</option>
+                <option value="distribusi">Kerjasama Distribusi</option>
+                <option value="produk">Pertanyaan Produk</option>
+                <option value="konsultasi">Konsultasi Supply Chain</option>
+                <option value="lainnya">Lainnya</option>
+              </select>
+            </div>
+            <div class="mb-6">
+              <label class="block text-xs font-medium text-gray-600 mb-2">Pesan *</label>
+              <textarea name="message" required rows="5" class="w-full bg-white/5 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/20 transition-all resize-none" placeholder="Ceritakan kebutuhan Anda..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full px-8 py-3.5 rounded-xl text-sm font-medium inline-flex items-center justify-center gap-2">
+              <span>Kirim Pesan</span>
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="mt-12 rounded-2xl overflow-hidden border border-gray-200 animate-on-scroll delay-3">
+        <div class="aspect-[21/9] bg-neutral-950 relative flex items-center justify-center">
+          <img src="https://picsum.photos/seed/maxindo-map/1400/600.jpg" alt="Lokasi PT Maxindo" class="w-full h-full object-cover opacity-40">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-2xl bg-green-500/20 flex items-center justify-center mx-auto mb-3 backdrop-blur-sm border border-green-500/30">
+                <i data-lucide="map-pin" class="w-7 h-7 text-green-600"></i>
+              </div>
+              <p class="text-sm font-medium">PT. Maxindo Sinaga Perkasa</p>
+              <p class="text-xs text-gray-600 mt-1">Kawasan Industri MM2100, Bekasi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-brand-950 text-white pt-10 sm:pt-14 pb-6 sm:pb-8">
+  <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
+    <!-- Top: Brand -->
+    <div class="text-center mb-10 sm:mb-12">
+      <div class="inline-flex items-center gap-2.5 mb-4">
+        <img src="assets/logo.png" alt="PT. Maxindo Sinaga Perkasa" class="w-10 h-10 object-contain">
+        <div class="text-left">
+          <div class="text-xs font-bold text-white">PT. Maxindo</div>
+          <div class="text-[8px] font-medium text-white/40 uppercase tracking-wider">Sinaga Perkasa</div>
+        </div>
+      </div>
+      <p class="text-[11px] sm:text-sm text-white/40 leading-relaxed max-w-md mx-auto mb-5">Solusi distribusi dan supply chain terintegrasi untuk mendukung pertumbuhan bisnis Anda di seluruh Indonesia.</p>
+      <div class="flex items-center justify-center gap-2.5">
+        <a href="#" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-500/20 hover:border-brand-500/30 transition-all">
+          <i data-lucide="linkedin" class="w-3.5 h-3.5 text-white/40"></i>
+        </a>
+        <a href="#" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-500/20 hover:border-brand-500/30 transition-all">
+          <i data-lucide="instagram" class="w-3.5 h-3.5 text-white/40"></i>
+        </a>
+        <a href="#" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-500/20 hover:border-brand-500/30 transition-all">
+          <i data-lucide="facebook" class="w-3.5 h-3.5 text-white/40"></i>
+        </a>
+        <a href="#" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-500/20 hover:border-brand-500/30 transition-all">
+          <i data-lucide="youtube" class="w-3.5 h-3.5 text-white/40"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-white/10 mb-8 sm:mb-10"></div>
+
+    <!-- Middle: Links & Kontak -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 mb-8 sm:mb-10">
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-5 sm:pt-6 border-t border-white/10 flex flex-col items-center gap-3">
+      <p class="text-[10px] sm:text-xs text-white/30">&copy; 2026 PT. Maxindo Sinaga Perkasa.</p>
+      <div class="flex items-center gap-3">
+        <a href="#" class="text-[10px] sm:text-xs text-white/30 hover:text-white/60 transition-colors">Terms & Conditions</a>
+        <span class="text-white/10">|</span>
+        <span class="text-[10px] sm:text-xs text-white/20">Powered by <span class="text-white/40 font-medium">Raden Daruryugu</span></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button id="backToTop" class="fixed bottom-6 left-6 z-50 w-10 h-10 rounded-xl glass flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:bg-white/10">
+    <i data-lucide="chevron-up" class="w-4 h-4"></i>
+  </button>
+
+  <!-- ========== TOAST ========== -->
+  <div id="toast" class="toast">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+        <i data-lucide="check" class="w-4 h-4 text-green-400"></i>
+      </div>
+      <div>
+        <div class="text-sm font-medium" id="toastTitle">Berhasil!</div>
+        <div class="text-xs text-gray-600" id="toastMsg">Pesan Anda telah terkirim.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // ===== NAVBAR SCROLL =====
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 50) {
+        navbar.classList.add('glass-strong');
+        navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+      } else {
+        navbar.classList.remove('glass-strong');
+        navbar.style.borderBottom = 'none';
+      }
+      // Back to top
+      const btn = document.getElementById('backToTop');
+      if (scrollY > 600) {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+      } else {
+        btn.style.opacity = '0';
+        btn.style.pointerEvents = 'none';
+      }
+      lastScroll = scrollY;
+    });
+
+    document.getElementById('backToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== MOBILE MENU =====
+    const mobileMenu = document.getElementById('mobileMenu');
+    document.getElementById('menuToggle').addEventListener('click', () => mobileMenu.classList.add('open'));
+    document.getElementById('menuClose').addEventListener('click', () => mobileMenu.classList.remove('open'));
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // ===== SCROLL ANIMATIONS =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // ===== COUNTER ANIMATION =====
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
+          let current = 0;
+          const increment = target / 60;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
+            }
+            if (target >= 1000) {
+              el.textContent = Math.floor(current).toLocaleString('id-ID') + '+';
+            } else {
+              el.textContent = Math.floor(current) + '+';
+            }
+          }, 25);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+    // ===== PRODUCT TABS =====
+    const tabs = document.querySelectorAll('.product-tab');
+    const products = document.querySelectorAll('#productGrid > div');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Update active tab
+        tabs.forEach(t => {
+          t.classList.remove('tab-active');
+          t.classList.add('text-gray-600');
+        });
+        tab.classList.add('tab-active');
+        tab.classList.remove('text-gray-600');
+
+        const filter = tab.dataset.tab;
+
+        products.forEach(product => {
+          if (filter === 'all' || product.dataset.category === filter) {
+            product.style.display = '';
+            product.style.opacity = '0';
+            product.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              product.style.transition = 'all 0.5s ease';
+              product.style.opacity = '1';
+              product.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            product.style.opacity = '0';
+            product.style.transform = 'translateY(20px)';
+            setTimeout(() => { product.style.display = 'none'; }, 300);
+          }
+        });
+      });
+    });
+
+    // ===== CONTACT FORM =====
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<span><span class="inline-block animate-spin mr-2">⟳</span>Mengirim...</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+        this.reset();
+        showToast('Pesan Terkirim!', 'Tim kami akan menghubungi Anda dalam 24 jam kerja.');
+      }, 1500);
+    });
+
+    // ===== TOAST =====
+    function showToast(title, msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    // ===== SMOOTH SCROLL =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ===== PARALLAX HERO GLOW =====
+    window.addEventListener('mousemove', (e) => {
+      const glows = document.querySelectorAll('.hero-glow');
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      glows.forEach((glow, i) => {
+        const factor = i % 2 === 0 ? 1 : -1;
+        glow.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk - PT. Maxindo Sinaga Perkasa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#F0FDF4', 100: '#DCFCE7', 200: '#BBF7D0', 300: '#86EFAC',
+              400: '#4ADE80', 500: '#22C55E', 600: '#16A34A', 700: '#15803D',
+              800: '#166534', 900: '#14532D', 950: '#052E16',
+            }
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #22C55E; border-radius: 3px; }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+    .stagger-1 { transition-delay: 0.03s; } .stagger-2 { transition-delay: 0.06s; }
+    .stagger-3 { transition-delay: 0.09s; } .stagger-4 { transition-delay: 0.12s; }
+    .stagger-5 { transition-delay: 0.15s; } .stagger-6 { transition-delay: 0.18s; }
+    .stagger-7 { transition-delay: 0.21s; } .stagger-8 { transition-delay: 0.24s; }
+    .stagger-9 { transition-delay: 0.27s; }
+
+    .product-card { transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -12px rgba(22, 163, 74, 0.12); }
+    .product-card:hover .product-img { transform: scale(1.06); }
+    .product-card:hover .product-actions { opacity: 1; transform: translateY(0); }
+    .product-card:hover .product-badge-el { background: #22C55E; color: white; }
+    .product-card:hover .product-overlay { opacity: 1; }
+
+    .product-actions { opacity: 0; transform: translateY(8px); transition: all 0.3s ease; }
+    .product-img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .product-overlay { opacity: 0; transition: opacity 0.35s ease; }
+
+    /* Mobile: always show wishlist, no overlay */
+    @media (max-width: 767px) {
+      .product-actions { opacity: 1; transform: translateY(0); }
+      .product-card:hover { transform: none; box-shadow: none; }
+      .product-card:hover .product-img { transform: none; }
+      .product-card:hover .product-badge-el { background: #DCFCE7; color: #15803D; }
+    }
+
+    .cat-item { transition: all 0.25s ease; }
+    .cat-item:hover { background: #F0FDF4; color: #15803D; }
+    .cat-item.active { background: linear-gradient(135deg, #22C55E, #16A34A); color: white; box-shadow: 0 4px 15px -3px rgba(22, 163, 74, 0.3); }
+    .cat-item.active .cat-count { background: rgba(255,255,255,0.2); color: white; }
+    .cat-count { transition: all 0.25s ease; }
+
+    .filter-tag { transition: all 0.2s ease; }
+    .filter-tag:hover { border-color: #22C55E; color: #16A34A; }
+    .filter-tag.active { background: linear-gradient(135deg, #22C55E, #16A34A); color: white; border-color: transparent; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22C55E, #16A34A);
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -8px rgba(22, 163, 74, 0.4); }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 2px;
+      background: #22C55E; transition: all 0.3s ease; transform: translateX(-50%);
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    .mobile-menu { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .mobile-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .search-input:focus { box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1); }
+
+    .modal-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-content { transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .modal-overlay.open .modal-content { transform: scale(1) translateY(0); }
+
+    .sort-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+
+    .back-to-top { opacity: 0; transform: translateY(20px); transition: all 0.3s ease; pointer-events: none; }
+    .back-to-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+    .dot-pattern { background-image: radial-gradient(circle, #22C55E 1px, transparent 1px); background-size: 24px 24px; opacity: 0.04; }
+
+    .sidebar-scroll::-webkit-scrollbar { width: 3px; }
+    .sidebar-scroll::-webkit-scrollbar-thumb { background: #22C55E; border-radius: 2px; }
+
+    @media (max-width: 1023px) {
+      .filter-sidebar { transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: fixed; top: 0; left: 0; width: 300px; max-width: 85vw; height: 100vh; z-index: 60; background: white; }
+      .filter-sidebar.open { transform: translateX(0); }
+    }
+
+    .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-14 sm:h-[72px]">
+        <a href="#" class="flex items-center gap-2 sm:gap-3">
+          <img src="assets/logo.png" alt="PT. Maxindo Sinaga Perkasa" class="w-10 h-10 object-contain">
+
+          <div class="flex flex-col">
+            <span class="text-xs sm:text-sm font-bold tracking-tight text-gray-900">PT. Maxindo</span>
+            <span class="text-[8px] sm:text-[10px] font-medium tracking-widest uppercase text-gray-400 hidden xs:block">Sinaga Perkasa</span>
+          </div>
+        </a>
+        <div class="hidden lg:flex items-center gap-1">
+          <a href="index.html" class="nav-link px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Beranda</a>
+          <a href="#" class="nav-link px-4 py-2 text-sm font-medium text-gray-900 active">Produk</a>
+        <div class="flex items-center gap-4">
+          <a href="https://wa.me/6287743000992" target="_blank" aria-label="Hubungi Kami via WhatsApp" class="group flex items-center gap-3 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/20 hover:border-[#25D366]/40 rounded-full px-5 py-2.5 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#25D366" class="shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            <span class="text-sm font-semibold text-[#25D366] tracking-wide group-hover:text-[#1ebe5a] transition-colors duration-300">Hubungi Kami</span>
+          </a>
+          <button id="menuToggle" class="lg:hidden w-10 h-10 rounded-xl glass flex items-center justify-center">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>       
+      </div>
+  
+        <button id="nav-toggle" class="lg:hidden w-9 h-9 rounded-lg flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors" aria-label="Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-overlay" class="mobile-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-50"></div>
+  <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-80 max-w-[85vw] h-full bg-white z-50 shadow-2xl">
+    <div class="flex flex-col h-full">
+      <div class="flex items-center justify-between p-4 border-b border-gray-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center"><span class="text-white font-bold text-xs">M</span></div>
+          <span class="font-bold text-sm text-gray-900">Maxindo</span>
+        </div>
+        <button id="menu-close" class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100"><i data-lucide="x" class="w-5 h-5 text-gray-500"></i></button>
+      </div>
+      <div class="flex-1 overflow-y-auto py-3">
+        <div class="px-3 space-y-1">
+          <a href="index.html" class="flex items-center gap-3 px-3 py-3 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-all font-medium text-sm"><i data-lucide="home" class="w-4 h-4 text-gray-400"></i>Beranda</a>
+          <a href="#" class="flex items-center gap-3 px-3 py-3 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-all font-medium text-sm"><i data-lucide="building-2" class="w-4 h-4 text-gray-400"></i>Tentang</a>
+          <a href="#" class="flex items-center gap-3 px-3 py-3 rounded-xl bg-brand-50 text-brand-700 font-medium text-sm"><i data-lucide="package" class="w-4 h-4 text-brand-600"></i>Produk</a>
+          <a href="#" class="flex items-center gap-3 px-3 py-3 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-all font-medium text-sm"><i data-lucide="briefcase" class="w-4 h-4 text-gray-400"></i>Layanan</a>
+          <a href="#" class="flex items-center gap-3 px-3 py-3 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-all font-medium text-sm"><i data-lucide="layout-grid" class="w-4 h-4 text-gray-400"></i>Proyek</a>
+          <a href="#" class="flex items-center gap-3 px-3 py-3 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-all font-medium text-sm"><i data-lucide="phone" class="w-4 h-4 text-gray-400"></i>Kontak</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Overlay Mobile -->
+  <div id="filter-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" onclick="closeFilterSidebar()"></div>
+
+  <!-- Page Header -->
+  <section class="pt-14 sm:pt-[72px] relative">
+    <div class="bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 py-8 sm:py-14 lg:py-16 relative">
+      <div class="dot-pattern absolute inset-0"></div>
+      <div class="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full bg-brand-500/10 blur-[100px]"></div>
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative">
+        <nav class="flex items-center gap-1.5 text-xs sm:text-sm mb-4 sm:mb-6" style="animation: fadeInUp 0.6s ease forwards;">
+          <a href="index.html" class="text-white/40 hover:text-white/70 transition-colors">Beranda</a>
+          <i data-lucide="chevron-right" class="w-3 h-3 text-white/20"></i>
+          <span class="text-brand-400 font-medium">Produk</span>
+        </nav>
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div style="animation: fadeInUp 0.6s ease 0.1s both;">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-2">
+              Katalog <span class="text-brand-400">Produk</span>
+            </h1>
+            <p class="text-white/50 text-sm sm:text-base max-w-lg hidden sm:block">Temukan berbagai produk berkualitas tinggi dari brand ternama.</p>
+          </div>
+          <div class="flex items-center gap-2" style="animation: fadeInUp 0.6s ease 0.2s both;">
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/10">
+              <i data-lucide="package" class="w-3.5 h-3.5 text-brand-400"></i>
+              <span class="text-xs sm:text-sm font-semibold text-white" id="total-products">48</span>
+              <span class="text-[10px] sm:text-xs text-white/40">Produk</span>
+            </div>
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/10">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-brand-400"></i>
+              <span class="text-xs sm:text-sm font-semibold text-white">8</span>
+              <span class="text-[10px] sm:text-xs text-white/40">Kategori</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Product Section -->
+  <section class="py-4 sm:py-6 lg:py-10">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <!-- Search & Filter Bar -->
+      <div class="bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm p-3 sm:p-4 lg:p-5 mb-4 sm:mb-6 animate-on-scroll">
+        <div class="flex flex-col sm:flex-row gap-3 items-center">
+          <div class="relative flex-1 w-full">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300"></i>
+            <input type="text" id="search-input" placeholder="Cari produk..."
+              class="search-input w-full pl-9 pr-3 py-2.5 sm:py-3 sm:pl-11 sm:pr-4 sm:py-3.5 rounded-lg sm:rounded-xl border border-gray-200 text-xs sm:text-sm focus:outline-none focus:border-brand-500 transition-all placeholder:text-gray-300">
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <select id="sort-select" class="sort-select w-full sm:w-44 lg:w-52 px-3 py-2.5 sm:px-4 sm:py-3.5 pr-8 rounded-lg sm:rounded-xl border border-gray-200 text-xs sm:text-sm text-gray-600 focus:outline-none focus:border-brand-500 transition-all bg-white cursor-pointer">
+              <option value="default">Urutkan: Default</option>
+              <option value="name-asc">Nama: A - Z</option>
+              <option value="name-desc">Nama: Z - A</option>
+              <option value="newest">Terbaru</option>
+              <option value="popular">Terpopuler</option>
+            </select>
+            <button id="filter-toggle-mobile" class="lg:hidden flex items-center gap-1.5 px-3 py-2.5 rounded-lg border border-gray-200 text-xs font-medium text-gray-600 hover:border-brand-500 hover:text-brand-600 transition-all flex-shrink-0">
+              <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+              <span>Filter</span>
+            </button>
+          </div>
+        </div>
+        <!-- Active Filters -->
+        <div id="active-filters" class="hidden mt-3 pt-3 border-t border-gray-100">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider">Aktif:</span>
+            <div id="active-filter-tags" class="flex items-center gap-1.5 flex-wrap"></div>
+            <button onclick="clearAllFilters()" class="text-[10px] sm:text-xs font-semibold text-red-500 hover:text-red-600 transition-colors ml-1">Hapus Semua</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 sm:gap-6 lg:gap-8">
+        <!-- Sidebar -->
+        <aside id="filter-sidebar" class="filter-sidebar lg:!transform-none lg:!position-relative lg:!w-64 lg:!flex-shrink-0 lg:!h-auto lg:!z-auto p-4 lg:p-0">
+          <div class="lg:sticky lg:top-[80px]">
+            <div class="flex items-center justify-between mb-4 lg:hidden">
+              <h3 class="font-bold text-gray-900 text-sm">Filter</h3>
+              <button onclick="closeFilterSidebar()" class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100"><i data-lucide="x" class="w-4 h-4 text-gray-500"></i></button>
+            </div>
+            <div class="sidebar-scroll lg:max-h-[calc(100vh-100px)] lg:overflow-y-auto lg:pr-1 space-y-6">
+              <!-- Categories -->
+              <div>
+                <h3 class="text-[10px] sm:text-xs font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                  <i data-lucide="grid-3x3" class="w-3 h-3 text-brand-600"></i>Kategori
+                </h3>
+                <div class="space-y-1" id="category-list">
+                  <button class="cat-item active w-full flex items-center justify-between px-3 py-2 lg:px-3.5 lg:py-2.5 rounded-lg text-xs lg:text-sm font-medium" data-category="semua" onclick="filterCategory('semua', this)">
+                    <span class="flex items-center gap-2"><i data-lucide="box" class="w-3.5 h-3.5"></i>Semua</span>
+                    <span class="cat-count text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-semibold">48</span>
+                  </button>
+                  <button class="cat-item w-full flex items-center justify-between px-3 py-2 lg:px-3.5 lg:py-2.5 rounded-lg text-xs lg:text-sm font-medium text-gray-600" data-category="ac" onclick="filterCategory('ac', this)">
+                    <span class="flex items-center gap-2"><i data-lucide="wind" class="w-3.5 h-3.5"></i>AC & Pendingin</span>
+                    <span class="cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold">8</span>
+                  </button>
+                  <button class="cat-item w-full flex items-center justify-between px-3 py-2 lg:px-3.5 lg:py-2.5 rounded-lg text-xs lg:text-sm font-medium text-gray-600" data-category="elektronik" onclick="filterCategory('elektronik', this)">
+                    <span class="flex items-center gap-2"><i data-lucide="monitor" class="w-3.5 h-3.5"></i>Elektronik</span>
+                    <span class="cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold">7</span>
+                  </button>
+                  <button class="cat-item w-full flex items-center justify-between px-3 py-2 lg:px-3.5 lg:py-2.5 rounded-lg text-xs lg:text-sm font-medium text-gray-600" data-category="mesin-cuci" onclick="filterCategory('mesin-cuci', this)">
+                    <span class="flex items-center gap-2"><i data-lucide="waves" class="w-3.5 h-3.5"></i>Mesin Cuci</span>
+                    <span class="cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold">6</span>
+                  </button>
+                  <button class="cat-item w-full flex items-center justify-between px-3 py-2 lg:px-3.5 lg:py-2.5 rounded-lg text-xs lg:text-sm font-medium text-gray-600" data-category="kulkas" onclick="filterCategory('kulkas', this)">
+                    <span class="flex items-center gap-2"><i data-lucide="thermometer-snowflake" class="w-3.5 h-3.5"></i>Kulkas</span>
+                    <span class="cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold">6</span>
+                  </button>
+                  <button class="cat-item w-full flex items-center justify-between px-3 py-2 lg:px-3.5 lg:py-2.5 rounded-lg text-xs lg:text-sm font-medium text-gray-600" data-category="pompa" onclick="filterCategory('pompa', this)">
+                    <span class="flex items-center gap-2"><i data-lucide="droplets" class="w-3.5 h-3.5"></i>Pompa Air</span>
+                    <span class="cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold">5</span>
+                  </button>
+                  <button class="cat-item w-full flex items-center justify-between px-3 py-2 lg:px-3.5 lg:py-2.5 rounded-lg text-xs lg:text-sm font-medium text-gray-600" data-category="dapur" onclick="filterCategory('dapur', this)">
+                    <span class="flex items-center gap-2"><i data-lucide="cooking-pot" class="w-3.5 h-3.5"></i>Dapur</span>
+                    <span class="cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold">8</span>
+                  </button>
+                  <button class="cat-item w-full flex items-center justify-between px-3 py-2 lg:px-3.5 lg:py-2.5 rounded-lg text-xs lg:text-sm font-medium text-gray-600" data-category="industri" onclick="filterCategory('industri', this)">
+                    <span class="flex items-center gap-2"><i data-lucide="factory" class="w-3.5 h-3.5"></i>Industri</span>
+                    <span class="cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold">8</span>
+                  </button>
+                </div>
+              </div>
+              <!-- Brands -->
+              <div>
+                <h3 class="text-[10px] sm:text-xs font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                  <i data-lucide="tag" class="w-3 h-3 text-brand-600"></i>Brand
+                </h3>
+                <div class="flex flex-wrap gap-1.5" id="brand-filters">
+                  <button class="filter-tag active px-2.5 py-1.5 rounded-md border border-gray-200 text-[11px] font-medium text-gray-600" data-brand="semua" onclick="filterBrand('semua', this)">Semua</button>
+                  <button class="filter-tag px-2.5 py-1.5 rounded-md border border-gray-200 text-[11px] font-medium text-gray-600" data-brand="panasonic" onclick="filterBrand('panasonic', this)">Panasonic</button>
+                  <button class="filter-tag px-2.5 py-1.5 rounded-md border border-gray-200 text-[11px] font-medium text-gray-600" data-brand="lg" onclick="filterBrand('lg', this)">LG</button>
+                  <button class="filter-tag px-2.5 py-1.5 rounded-md border border-gray-200 text-[11px] font-medium text-gray-600" data-brand="samsung" onclick="filterBrand('samsung', this)">Samsung</button>
+                  <button class="filter-tag px-2.5 py-1.5 rounded-md border border-gray-200 text-[11px] font-medium text-gray-600" data-brand="sharp" onclick="filterBrand('sharp', this)">Sharp</button>
+                  <button class="filter-tag px-2.5 py-1.5 rounded-md border border-gray-200 text-[11px] font-medium text-gray-600" data-brand="daikin" onclick="filterBrand('daikin', this)">Daikin</button>
+                  <button class="filter-tag px-2.5 py-1.5 rounded-md border border-gray-200 text-[11px] font-medium text-gray-600" data-brand="grundfos" onclick="filterBrand('grundfos', this)">Grundfos</button>
+                  <button class="filter-tag px-2.5 py-1.5 rounded-md border border-gray-200 text-[11px] font-medium text-gray-600" data-brand="modena" onclick="filterBrand('modena', this)">Modena</button>
+                </div>
+              </div>
+              <!-- CTA -->
+              <div class="bg-brand-50 rounded-xl p-4 border border-brand-100">
+                <div class="flex items-center gap-2.5 mb-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-brand-100 flex items-center justify-center"><i data-lucide="headphones" class="w-4 h-4 text-brand-600"></i></div>
+                  <div><h4 class="text-xs font-bold text-gray-900">Butuh Bantuan?</h4><p class="text-[10px] text-gray-400">Konsultasi gratis</p></div>
+                </div>
+                <a href="#" class="btn-primary block text-center px-3 py-2 rounded-lg text-[11px] font-semibold text-white">Hubungi Kami</a>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Product Grid -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between mb-3 sm:mb-4">
+            <p class="text-xs sm:text-sm text-gray-400">Menampilkan <span class="font-semibold text-gray-900" id="showing-count">48</span> produk</p>
+            <div class="hidden sm:flex items-center gap-1 bg-gray-100 rounded-lg p-0.5">
+              <button id="view-grid" onclick="setView('grid')" class="w-7 h-7 rounded-md flex items-center justify-center bg-white shadow-sm text-brand-600 transition-all"><i data-lucide="grid-3x3" class="w-3.5 h-3.5"></i></button>
+              <button id="view-list" onclick="setView('list')" class="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:text-gray-600 transition-all"><i data-lucide="list" class="w-3.5 h-3.5"></i></button>
+            </div>
+          </div>
+
+          <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 lg:gap-5"></div>
+          <div id="product-list" class="hidden space-y-3"></div>
+
+          <div id="no-results" class="hidden text-center py-16">
+            <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-5"><i data-lucide="search-x" class="w-7 h-7 text-gray-300"></i></div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tidak Ditemukan</h3>
+            <p class="text-xs sm:text-sm text-gray-400 max-w-xs mx-auto mb-5">Ubah kata kunci atau filter untuk menemukan produk.</p>
+            <button onclick="clearAllFilters()" class="btn-primary px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white">Reset Filter</button>
+          </div>
+
+          <div id="pagination" class="flex items-center justify-center gap-1.5 sm:gap-2 mt-8 sm:mt-10"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Detail Modal -->
+  <div id="product-modal" class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center sm:p-4">
+    <div class="modal-content bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="relative">
+        <div class="relative aspect-video sm:aspect-[16/10] overflow-hidden rounded-t-3xl sm:rounded-t-3xl bg-gray-100">
+          <img id="modal-image" src="" alt="" class="w-full h-full object-cover">
+          <button onclick="closeModal()" class="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors shadow-lg">
+            <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 text-gray-700"></i>
+          </button>
+          <div id="modal-badge" class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2.5 py-1 rounded-md sm:rounded-lg bg-brand-500 text-white text-[10px] sm:text-xs font-semibold"></div>
+          <!-- Drag indicator for mobile -->
+          <div class="sm:hidden absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1 rounded-full bg-white/40"></div>
+        </div>
+        <div class="p-4 sm:p-6 lg:p-10">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
+            <div>
+              <p class="text-[10px] sm:text-xs font-semibold text-brand-600 uppercase tracking-wider mb-1 sm:mb-2" id="modal-category"></p>
+              <h2 class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-gray-900 tracking-tight" id="modal-name"></h2>
+            </div>
+            <span class="text-[10px] sm:text-xs font-semibold px-2.5 py-1 rounded-md sm:rounded-lg bg-gray-100 text-gray-600 self-start" id="modal-brand"></span>
+          </div>
+          <p class="text-gray-500 text-xs sm:text-sm leading-relaxed mb-5 sm:mb-8" id="modal-desc"></p>
+          <h3 class="text-[10px] sm:text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 sm:mb-4">Spesifikasi</h3>
+          <div class="grid grid-cols-2 gap-2 sm:gap-3 mb-5 sm:mb-8" id="modal-specs"></div>
+          <h3 class="text-[10px] sm:text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 sm:mb-4">Fitur Unggulan</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-5 sm:mb-8" id="modal-features"></div>
+          <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-4 sm:pt-6 border-t border-gray-100">
+            <a href="#" class="btn-primary flex-1 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold text-white flex items-center justify-center gap-2">
+              <i data-lucide="message-square" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>Minta Penawaran
+            </a>
+            <a href="#" class="flex-1 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>Download Brosur
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-brand-950 text-white pt-10 sm:pt-14 pb-6 sm:pb-8 mt-6">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 mb-8 sm:mb-10">
+        <div class="col-span-2 sm:col-span-1">
+          <div class="flex items-center gap-2 mb-4">
+            <img src="assets/logo.png" alt="PT. Maxindo Sinaga Perkasa" class="w-10 h-10 object-contain">
+            <div><div class="text-xs font-bold text-white">PT. Maxindo</div><div class="text-[8px] font-medium text-white/40 uppercase tracking-wider">Sinaga Perkasa</div></div>
+          </div>
+          <p class="text-[11px] sm:text-sm text-white/40 leading-relaxed">Mitra distribusi terpercaya untuk produk berkualitas tinggi di seluruh Indonesia.</p>
+        </div>
+        <div>
+          <h4 class="text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider mb-3 sm:mb-4">Navigasi</h4>
+          <ul class="space-y-2"><li><a href="index.html" class="text-[11px] sm:text-sm text-white/40 hover:text-brand-400 transition-colors">Beranda</a></li><li><li><a href="#" class="text-[11px] sm:text-sm text-white/40 hover:text-brand-400 transition-colors">Produk</a></li></ul>
+        </div>
+        <div>
+          <h4 class="text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider mb-3 sm:mb-4">Kategori</h4>
+          <ul class="space-y-2"><li><a href="#" class="text-[11px] sm:text-sm text-white/40 hover:text-brand-400 transition-colors">AC</a></li><li><a href="#" class="text-[11px] sm:text-sm text-white/40 hover:text-brand-400 transition-colors">Elektronik</a></li><li><a href="#" class="text-[11px] sm:text-sm text-white/40 hover:text-brand-400 transition-colors">Mesin Cuci</a></li><li><a href="#" class="text-[11px] sm:text-sm text-white/40 hover:text-brand-400 transition-colors">Pompa Air</a></li></ul>
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <h4 class="text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider mb-3 sm:mb-4">Kontak</h4>
+          <ul class="space-y-2">
+            <li class="text-[11px] sm:text-sm text-white/40 flex items-start gap-1.5"><i data-lucide="map-pin" class="w-3 h-3 mt-0.5 flex-shrink-0 text-brand-500"></i>Jl. Raya Industri No. 88, Jakarta</li>
+            <li class="text-[11px] sm:text-sm text-white/40 flex items-center gap-1.5"><i data-lucide="phone" class="w-3 h-3 flex-shrink-0 text-brand-500"></i>(021) 1234-5678</li>
+            <li class="text-[11px] sm:text-sm text-white/40 flex items-center gap-1.5"><i data-lucide="mail" class="w-3 h-3 flex-shrink-0 text-brand-500"></i>info@maxindosinaga.co.id</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-5 sm:pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-[10px] sm:text-xs text-white/30">&copy; 2024 PT. Maxindo Sinaga Perkasa. All rights reserved.</p>
+        <div class="flex gap-4"><a href="#" class="text-[10px] sm:text-xs text-white/30 hover:text-white/60 transition-colors">Privacy</a><a href="#" class="text-[10px] sm:text-xs text-white/30 hover:text-white/60 transition-colors">Terms</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" class="back-to-top fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-lg shadow-brand-500/30 flex items-center justify-center z-40">
+    <i data-lucide="chevron-up" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+  </button>
+
+  <!-- Toast -->
+  <div id="toast-container" class="fixed top-20 right-3 sm:top-24 sm:right-6 z-[70] space-y-2"></div>
+
+  <script>
+    const products = [
+      { id:1, name:"Panasonic CS-PU12XKJ8", category:"ac", brand:"panasonic", badge:"Best Seller", image:"maxindo-ac1", desc:"AC Split Inverter 1.5 PK dengan teknologi Econavi dan Nanoe-X untuk udara lebih bersih dan sehat.", specs:[{label:"Kapasitas",value:"1.5 PK"},{label:"Tipe",value:"Split Inverter"},{label:"Refrigerant",value:"R32"},{label:"Dimensi",value:"799×290×214mm"}], features:["Nanoe-X Purifying","Econavi Sensor","Quiet 21dB","WiFi Remote"] },
+      { id:2, name:"LG Dual Inverter S13EV", category:"ac", brand:"lg", badge:"New", image:"maxindo-ac2", desc:"AC Dual Inverter 1.5 PK dengan LG ThinQ untuk kontrol smartphone dan hemat energi.", specs:[{label:"Kapasitas",value:"1.5 PK"},{label:"Tipe",value:"Dual Inverter"},{label:"Refrigerant",value:"R32"},{label:"COP",value:"5.2"}], features:["Dual Inverter","LG ThinQ WiFi","Active Energy","Low Noise 19dB"] },
+      { id:3, name:"Daikin FTKC25TVM4", category:"ac", brand:"daikin", badge:"Premium", image:"maxindo-ac3", desc:"AC premium Daikin dengan Streamer Technology untuk udara bersih dan sehat.", specs:[{label:"Kapasitas",value:"1 PK"},{label:"Tipe",value:"Split Inverter"},{label:"Refrigerant",value:"R32"},{label:"Streamer",value:"Flash Streamer"}], features:["Flash Streamer","Coil Dry","Intelligent Eye","3D Airflow"] },
+      { id:4, name:"Samsung Wind-Free AR10TYHQ", category:"ac", brand:"samsung", badge:"", image:"maxindo-ac4", desc:"AC Wind-Free dengan pendinginan tanpa angin langsung untuk kenyamanan maksimal.", specs:[{label:"Kapasitas",value:"1 PK"},{label:"Tipe",value:"Wind-Free"},{label:"Refrigerant",value:"R32"},{label:"Inverter",value:"8 Pole"}], features:["Wind-Free Cooling","Digital Inverter 8P","SmartThings","Tri-Care Filter"] },
+      { id:5, name:"Sharp AH-XP10UHY", category:"ac", brand:"sharp", badge:"", image:"maxindo-ac5", desc:"AC Inverter Sharp dengan Plasmacluster Ion Technology untuk udara segar.", specs:[{label:"Kapasitas",value:"1 PK"},{label:"Tipe",value:"Split Inverter"},{label:"Refrigerant",value:"R32"},{label:"Plasmacluster",value:"Ion 7000"}], features:["Plasmacluster","J-Tech Inverter","Coat Protection","Gentle Airflow"] },
+      { id:6, name:"Panasonic CS-PU18XKJ8", category:"ac", brand:"panasonic", badge:"", image:"maxindo-ac6", desc:"AC 2 PK Inverter untuk ruangan besar dengan Econavi dan auto-comfort.", specs:[{label:"Kapasitas",value:"2 PK"},{label:"Tipe",value:"Split Inverter"},{label:"Refrigerant",value:"R32"},{label:"Coverage",value:"36 m²"}], features:["Econavi Sensor","Auto Comfort","Powerful Mode","Blue Fin"] },
+      { id:7, name:"LG Dual Inverter S18EV", category:"ac", brand:"lg", badge:"New", image:"maxindo-ac7", desc:"AC Dual Inverter 2 PK untuk ruangan besar, hemat energi dan kontrol pintar.", specs:[{label:"Kapasitas",value:"2 PK"},{label:"Tipe",value:"Dual Inverter"},{label:"Refrigerant",value:"R32"},{label:"Coverage",value:"40 m²"}], features:["Dual Inverter","LG ThinQ","4-Way Swing","Auto Cleaning"] },
+      { id:8, name:"Daikin FTKJ35TVM4", category:"ac", brand:"daikin", badge:"", image:"maxindo-ac8", desc:"AC Daikin 1.5 PK ekonomis namun tetap berkualitas dan handal.", specs:[{label:"Kapasitas",value:"1.5 PK"},{label:"Tipe",value:"Standard Inv."},{label:"Refrigerant",value:"R32"},{label:"Coverage",value:"24 m²"}], features:["Inverter Tech","Coil Dry","Auto Restart","Anti-Corrosion"] },
+      { id:9, name:"Panasonic TH-50MX800J", category:"elektronik", brand:"panasonic", badge:"Best Seller", image:"maxindo-tv1", desc:"Smart TV 50 inch 4K HDR dengan Hexa Chroma Drive Pro dan Dolby Vision.", specs:[{label:"Ukuran",value:"50 inch"},{label:"Resolusi",value:"4K HDR"},{label:"Panel",value:"LED"},{label:"OS",value:"Android TV"}], features:["4K HDR10+","Dolby Vision","Hexa Chroma","Voice Control"] },
+      { id:10, name:"LG OLED55C3PTA", category:"elektronik", brand:"lg", badge:"Premium", image:"maxindo-tv2", desc:"OLED TV 55 inch self-lit pixel untuk hitam sempurna dan kontras tak tertandingi.", specs:[{label:"Ukuran",value:"55 inch"},{label:"Resolusi",value:"4K OLED"},{label:"Panel",value:"OLED evo"},{label:"OS",value:"webOS 23"}], features:["OLED evo","α9 Gen6 AI","Dolby Vision IQ","120Hz Gaming"] },
+      { id:11, name:"Samsung QA55QN85C", category:"elektronik", brand:"samsung", badge:"New", image:"maxindo-tv3", desc:"Neo QLED 55 inch dengan Neural Quantum Processor 4K dan Mini LED.", specs:[{label:"Ukuran",value:"55 inch"},{label:"Resolusi",value:"4K Neo QLED"},{label:"Panel",value:"Mini LED"},{label:"OS",value:"Tizen"}], features:["Neural Quantum 4K","Mini LED","Anti-Reflection","Dolby Atmos"] },
+      { id:12, name:"Sharp 50FN3ME", category:"elektronik", brand:"sharp", badge:"", image:"maxindo-tv4", desc:"Smart TV 50 inch Full HD harga terjangkau dengan fitur smart lengkap.", specs:[{label:"Ukuran",value:"50 inch"},{label:"Resolusi",value:"Full HD"},{label:"Panel",value:"LED"},{label:"OS",value:"SmartTV"}], features:["Full HD","Smart Platform","HDMI×3","Built-in WiFi"] },
+      { id:13, name:"Panasonic SC-HT900EGK", category:"elektronik", brand:"panasonic", badge:"", image:"maxindo-audio1", desc:"Home Theater 5.1 channel 600W untuk pengalaman surround immersif.", specs:[{label:"Channel",value:"5.1"},{label:"Output",value:"600W RMS"},{label:"Connect",value:"BT/HDMI"},{label:"Subwoofer",value:"Wireless"}], features:["600W Output","Wireless Sub","4K HDR Pass","BT Stream"] },
+      { id:14, name:"LG XBOOM RK7", category:"elektronik", brand:"lg", badge:"", image:"maxindo-audio2", desc:"Portable Bluetooth Speaker dengan karaoke dan LED lighting menarik.", specs:[{label:"Output",value:"160W"},{label:"Battery",value:"18 hours"},{label:"BT",value:"5.0"},{label:"Weight",value:"6.5 kg"}], features:["Karaoke Star","LED Lighting","DJ Effects","Party Mode"] },
+      { id:15, name:"Samsung Tab S9 FE", category:"elektronik", brand:"samsung", badge:"New", image:"maxindo-tab1", desc:"Tablet 10.9 inch dengan S Pen included untuk produktivitas dan hiburan.", specs:[{label:"Layar",value:"10.9 inch"},{label:"Chip",value:"Exynos 1380"},{label:"RAM",value:"6GB"},{label:"Storage",value:"128GB"}], features:["S Pen","IP68 Water","One UI 5.1","DeX Mode"] },
+      { id:16, name:"LG FV1408S4W", category:"mesin-cuci", brand:"lg", badge:"Best Seller", image:"maxindo-mc1", desc:"Mesin cuci front load 8kg dengan AI DD dan Steam Washer.", specs:[{label:"Kapasitas",value:"8 kg"},{label:"Tipe",value:"Front Load"},{label:"Motor",value:"AI DD Inverter"},{label:"Spin",value:"1400 RPM"}], features:["AI DD","Steam Washer","Smart Diagnosis","Allergy Care"] },
+      { id:17, name:"Samsung WW10T634DLE", category:"mesin-cuci", brand:"samsung", badge:"", image:"maxindo-mc2", desc:"Mesin cuci front load 10kg dengan EcoBubble dan Digital Inverter.", specs:[{label:"Kapasitas",value:"10 kg"},{label:"Tipe",value:"Front Load"},{label:"Motor",value:"Digital Inv."},{label:"Spin",value:"1400 RPM"}], features:["EcoBubble","Hygiene Steam","Quick 15min","Smart Check"] },
+      { id:18, name:"Panasonic NA-F80A1HRN", category:"mesin-cuci", brand:"panasonic", badge:"", image:"maxindo-mc3", desc:"Mesin cuci top load 8kg dengan Econavi dan Active Foam System.", specs:[{label:"Kapasitas",value:"8 kg"},{label:"Tipe",value:"Top Load"},{label:"Motor",value:"Inverter"},{label:"Spin",value:"800 RPM"}], features:["Active Foam","Econavi","StainMaster","Blue Ag"] },
+      { id:19, name:"Sharp ES-FL1082", category:"mesin-cuci", brand:"sharp", badge:"", image:"maxindo-mc4", desc:"Mesin cuci front load 10kg dengan LED touch dan motor inverter.", specs:[{label:"Kapasitas",value:"10 kg"},{label:"Tipe",value:"Front Load"},{label:"Motor",value:"Inverter"},{label:"Spin",value:"1200 RPM"}], features:["LED Touch","Inverter Motor","Allergy UK","Delay Start"] },
+      { id:20, name:"LG FV1410S4W", category:"mesin-cuci", brand:"lg", badge:"New", image:"maxindo-mc5", desc:"Mesin cuci front load 10.5kg dengan AI DD dan TurboWash.", specs:[{label:"Kapasitas",value:"10.5 kg"},{label:"Tipe",value:"Front Load"},{label:"Motor",value:"AI DD 2.0"},{label:"Spin",value:"1400 RPM"}], features:["AI DD 2.0","TurboWash 59","Steam+","Auto Dispense"] },
+      { id:21, name:"Samsung WW8NK52E0VW", category:"mesin-cuci", brand:"samsung", badge:"", image:"maxindo-mc6", desc:"Mesin cuci front load 8kg dengan Digital Inverter dan Drum Clean.", specs:[{label:"Kapasitas",value:"8 kg"},{label:"Tipe",value:"Front Load"},{label:"Motor",value:"Digital Inv."},{label:"Spin",value:"1200 RPM"}], features:["Digital Inverter","EcoBubble","Drum Clean","Quick Wash"] },
+      { id:22, name:"Panasonic NR-BX468GSK", category:"kulkas", brand:"panasonic", badge:"Best Seller", image:"maxindo-kr1", desc:"Kulkas 2 pintu 395L dengan Prime Fresh Technology.", specs:[{label:"Kapasitas",value:"395 L"},{label:"Tipe",value:"2 Pintu"},{label:"Defrost",value:"Auto"},{label:"Energy",value:"4 Bintang"}], features:["Prime Fresh","Econavi","Ag Clean","Glass Tray"] },
+      { id:23, name:"LG GN-B462SLCL", category:"kulkas", brand:"lg", badge:"", image:"maxindo-kr2", desc:"Kulkas 2 pintu 418L dengan Door-in-Door dan Linear Inverter.", specs:[{label:"Kapasitas",value:"418 L"},{label:"Tipe",value:"2 Pintu DiD"},{label:"Compressor",value:"Linear Inv."},{label:"Energy",value:"4 Bintang"}], features:["Door-in-Door","Linear Inverter","Smart Diagnosis","Moist Balance"] },
+      { id:24, name:"Samsung RT53K6985BS", category:"kulkas", brand:"samsung", badge:"Premium", image:"maxindo-kr3", desc:"Kulkas side by side 534L dengan Twin Cooling Plus.", specs:[{label:"Kapasitas",value:"534 L"},{label:"Tipe",value:"Side by Side"},{label:"Cooling",value:"Twin Cooling+"},{label:"Energy",value:"4 Bintang"}], features:["Twin Cooling+","Digital Inverter","Ice/Water Disp.","SmartThings"] },
+      { id:25, name:"Sharp SJ-316MHL-SL", category:"kulkas", brand:"sharp", badge:"", image:"maxindo-kr4", desc:"Kulkas 1 pintu 289L dengan J-Tech Inverter dan Plasmacluster.", specs:[{label:"Kapasitas",value:"289 L"},{label:"Tipe",value:"1 Pintu"},{label:"Defrost",value:"Semi Auto"},{label:"Energy",value:"4 Bintang"}], features:["J-Tech Inverter","Plasmacluster","Big Freezer","LED Light"] },
+      { id:26, name:"Panasonic NR-CY468GSK", category:"kulkas", brand:"panasonic", badge:"New", image:"maxindo-kr5", desc:"Kulkas 3 pintu 437L dengan Prime Fresh+ dan ECONAVI.", specs:[{label:"Kapasitas",value:"437 L"},{label:"Tipe",value:"3 Pintu"},{label:"Defrost",value:"Auto"},{label:"Energy",value:"4 Bintang"}], features:["Prime Fresh+","ECONAVI","Ag Clean","Flexible Comp."] },
+      { id:27, name:"Daikin SCFZ25TVM4", category:"kulkas", brand:"daikin", badge:"", image:"maxindo-kr6", desc:"Freezer chest 250L untuk penyimpanan beku jangka panjang.", specs:[{label:"Kapasitas",value:"250 L"},{label:"Tipe",value:"Chest"},{label:"Temp",value:"-18°C"},{label:"Energy",value:"3 Bintang"}], features:["Deep Freeze","Thick Insulation","Lock & Key","Low Noise"] },
+      { id:28, name:"Grundfos MQ3-45", category:"pompa", brand:"grundfos", badge:"Premium", image:"maxindo-pm1", desc:"Pompa booster self-priming untuk tekanan air rumah tangga.", specs:[{label:"Daya",value:"1.1 kW"},{label:"Debit",value:"4.8 m³/h"},{label:"Head",value:"45 m"},{label:"Port",value:"1 inch"}], features:["Self-Priming","Built-in Tank","Dry-Run Protect","Low Noise 54dB"] },
+      { id:29, name:"Grundfos SB 5-50 A", category:"pompa", brand:"grundfos", badge:"", image:"maxindo-pm2", desc:"Pompa celup sumur dalam untuk air bersih tahan korosi.", specs:[{label:"Daya",value:"1.5 kW"},{label:"Debit",value:"6 m³/h"},{label:"Head",value:"50 m"},{label:"Diameter",value:"4 inch"}], features:["Stainless Steel","Sand Fighter","Check Valve","Thermal Protect"] },
+      { id:30, name:"Panasonic GP-129JXK", category:"pompa", brand:"panasonic", badge:"Best Seller", image:"maxindo-pm3", desc:"Pompa air otomatis rumah tangga dengan sensor tekanan.", specs:[{label:"Daya",value:"250 W"},{label:"Debit",value:"40 L/min"},{label:"Head",value:"9 m"},{label:"Port",value:"1 inch"}], features:["Auto Pressure","Hemat Energi","Anti Rust","Silent"] },
+      { id:31, name:"LG WP-Q900RB", category:"pompa", brand:"lg", badge:"", image:"maxindo-pm4", desc:"Pompa semi jet daya hisap tinggi konstruksi tahan lama.", specs:[{label:"Daya",value:"375 W"},{label:"Debit",value:"40 L/min"},{label:"Head",value:"32 m"},{label:"Port",value:"1.25 inch"}], features:["Semi Jet","High Suction","Thermal Protect","Rust Proof"] },
+      { id:32, name:"Sharp SH-135JP", category:"pompa", brand:"sharp", badge:"", image:"maxindo-pm5", desc:"Pompa celup otomatis sumur dangkal dengan float switch.", specs:[{label:"Daya",value:"250 W"},{label:"Debit",value:"35 L/min"},{label:"Head",value:"12 m"},{label:"Kabel",value:"10 m"}], features:["Auto Float","Waterproof","Stainless Shaft","Overload Protect"] },
+      { id:33, name:"Modena BX 2422 V", category:"dapur", brand:"modena", badge:"Best Seller", image:"maxindo-dp1", desc:"Kompor tanam 2 tungku kaca tempered api bertekanan tinggi.", specs:[{label:"Tipe",value:"Built-in"},{label:"Tungku",value:"2 Burner"},{label:"Material",value:"Tempered Glass"},{label:"Ignition",value:"Auto Electric"}], features:["Triple Ring","Flame Failure","Easy Clean","Cast Iron Grid"] },
+      { id:34, name:"Modena HO 9433 GI", category:"dapur", brand:"modena", badge:"", image:"maxindo-dp2", desc:"Hood wall mounted hisap 900 m³/h filter karbon aktif.", specs:[{label:"Tipe",value:"Wall Hood"},{label:"Suction",value:"900 m³/h"},{label:"Filter",value:"Alumunium+C"},{label:"Noise",value:"54 dB"}], features:["High Suction","LED Light","3 Speed","Washable Filter"] },
+      { id:35, name:"Panasonic NN-DS596B", category:"dapur", brand:"panasonic", badge:"Premium", image:"maxindo-dp3", desc:"Microwave kombinasi inverter dengan fitur steam.", specs:[{label:"Kapasitas",value:"31 L"},{label:"Tipe",value:"Combi Steam"},{label:"Power",value:"1100W"},{label:"Grill",value:"1300W Quartz"}], features:["Inverter","Steam Cooking","Slim Design","Sensor Cook"] },
+      { id:36, name:"LG MH-6545DNS", category:"dapur", brand:"lg", badge:"", image:"maxindo-dp4", desc:"Microwave 25L Smart Inverter pemanasan merata.", specs:[{label:"Kapasitas",value:"25 L"},{label:"Tipe",value:"Solo"},{label:"Power",value:"800W"},{label:"Turntable",value:"320 mm"}], features:["Smart Inverter","Intact Heat","EasyClean","Anti-Bacteria"] },
+      { id:37, name:"Modena MD 7224 S", category:"dapur", brand:"modena", badge:"New", image:"maxindo-dp5", desc:"Dishwasher 14 set tempat 8 program hemat air.", specs:[{label:"Kapasitas",value:"14 Sets"},{label:"Program",value:"8"},{label:"Water",value:"9.5 L/cycle"},{label:"Energy",value:"A+++"}], features:["Half Load","Delay Timer","Aqua Stop","3-in-1 Detergent"] },
+      { id:38, name:"Samsung ME6144ST", category:"dapur", brand:"samsung", badge:"", image:"maxindo-dp6", desc:"Microwave 40L ceramic enamel interior anti bakteri.", specs:[{label:"Kapasitas",value:"40 L"},{label:"Tipe",value:"Solo"},{label:"Power",value:"800W"},{label:"Interior",value:"Ceramic"}], features:["Ceramic Enamel","Anti Bacterial","Triple Distrib.","ECO Mode"] },
+      { id:39, name:"Sharp KSA-103YV", category:"dapur", brand:"sharp", badge:"", image:"maxindo-dp7", desc:"Kompor gas 3 tungku stainless steel anti karat.", specs:[{label:"Tipe",value:"Free-standing"},{label:"Tungku",value:"3 Burner"},{label:"Material",value:"Stainless"},{label:"Ignition",value:"Piezo"}], features:["Turbo Flame","SABAF Burner","Anti Slip","Easy Clean"] },
+      { id:40, name:"Modena BX 3833 V", category:"dapur", brand:"modena", badge:"", image:"maxindo-dp8", desc:"Kompor tanam 3 tungku premium desain elegan.", specs:[{label:"Tipe",value:"Built-in"},{label:"Tungku",value:"3 Burner"},{label:"Material",value:"Black Glass"},{label:"Ignition",value:"Auto Electric"}], features:["Triple Ring Brass","Flame Failure","One Hand Ign.","Cast Iron"] },
+      { id:41, name:"Panasonic FY-25JMW", category:"industri", brand:"panasonic", badge:"Best Seller", image:"maxindo-ind1", desc:"Fan industri ceiling 56 inch motor tahan lama.", specs:[{label:"Diameter",value:"56 inch"},{label:"Daya",value:"85W"},{label:"RPM",value:"320"},{label:"Bilah",value:"3 Alum."}], features:["Heavy Duty","Alum. Blade","Low Noise","Balanced"] },
+      { id:42, name:"LG PU506UNL", category:"industri", brand:"lg", badge:"", image:"maxindo-ind2", desc:"AC Cassette 5 PK distribusi udara 4 arah slim.", specs:[{label:"Kapasitas",value:"5 PK"},{label:"Tipe",value:"Cassette 4-Way"},{label:"Refrigerant",value:"R410A"},{label:"Coverage",value:"60 m²"}], features:["4-Way Airflow","Thin Design","Drain Pump","Wired Remote"] },
+      { id:43, name:"Daikin FHQ100TAV", category:"industri", brand:"daikin", badge:"Premium", image:"maxindo-ind3", desc:"Floor Standing AC 10 PK cooling dan heating.", specs:[{label:"Kapasitas",value:"10 PK"},{label:"Tipe",value:"Floor Stand."},{label:"Refrigerant",value:"R410A"},{label:"Coverage",value:"100 m²"}], features:["Cool+Heat","Wide Airflow","High Static","Durable"] },
+      { id:44, name:"Grundfos CRE 5-8", category:"industri", brand:"grundfos", badge:"", image:"maxindo-ind4", desc:"Pompa multistage EEF untuk boosting gedung bertingkat.", specs:[{label:"Daya",value:"2.2 kW"},{label:"Debit",value:"8 m³/h"},{label:"Head",value:"80 m"},{label:"Speed",value:"Variable"}], features:["EER Motor","Built-in VFD","Dry-Run Sensor","Comm. Interface"] },
+      { id:45, name:"Samsung LH65BECHLG", category:"industri", brand:"samsung", badge:"New", image:"maxindo-ind5", desc:"Digital Signage 65 inch 4K brightness tinggi 24/7.", specs:[{label:"Ukuran",value:"65 inch"},{label:"Resolusi",value:"4K UHD"},{label:"Bright",value:"500 nit"},{label:"Running",value:"24/7"}], features:["24/7 Non-Stop","Built-in WiFi","Tizen Biz","MagicINFO"] },
+      { id:46, name:"Sharp SJ-F290MFP-SL", category:"industri", brand:"sharp", badge:"", image:"maxindo-ind6", desc:"Showcase kue 290L suhu terkontrol lampu LED.", specs:[{label:"Kapasitas",value:"290 L"},{label:"Suhu",value:"2~8°C"},{label:"Material",value:"Tempered Glass"},{label:"Rak",value:"4 Level"}], features:["LED Light","Adj. Shelf","Self-Closing","CFC Free"] },
+      { id:47, name:"Panasonic WV-SFV631L", category:"industri", brand:"panasonic", badge:"", image:"maxindo-ind7", desc:"CCTV IP Camera 4K AI analytics night vision.", specs:[{label:"Resolusi",value:"4K UHD"},{label:"Tipe",value:"Dome IP"},{label:"Night Vis",value:"30m IR"},{label:"IP Rating",value:"IP67 IK10"}], features:["AI Analytics","4K Resolution","True WDR","Edge Record"] },
+      { id:48, name:"LG 27UN850-W", category:"industri", brand:"lg", badge:"", image:"maxindo-ind8", desc:"Monitor pro 27 inch 4K IPS HDR400 USB-C.", specs:[{label:"Ukuran",value:"27 inch"},{label:"Resolusi",value:"4K UHD"},{label:"Panel",value:"IPS HDR400"},{label:"Ports",value:"USB-C/HDMI/DP"}], features:["USB-C 60W PD","HDR400","99% sRGB","Ergo Stand"] },
+    ];
+
+    let currentCategory='semua', currentBrand='semua', currentSearch='', currentSort='default', currentView='grid', currentPage=1;
+    const perPage = window.innerWidth < 640 ? 12 : 9;
+    const categoryNames={'semua':'Semua','ac':'AC & Pendingin','elektronik':'Elektronik','mesin-cuci':'Mesin Cuci','kulkas':'Kulkas & Freezer','pompa':'Pompa Air','dapur':'Peralatan Dapur','industri':'Peralatan Industri'};
+
+    function getFilteredProducts(){
+      let f=[...products];
+      if(currentCategory!=='semua') f=f.filter(p=>p.category===currentCategory);
+      if(currentBrand!=='semua') f=f.filter(p=>p.brand===currentBrand);
+      if(currentSearch){ const q=currentSearch.toLowerCase(); f=f.filter(p=>p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||categoryNames[p.category]?.toLowerCase().includes(q)); }
+      switch(currentSort){ case 'name-asc':f.sort((a,b)=>a.name.localeCompare(b.name));break; case 'name-desc':f.sort((a,b)=>b.name.localeCompare(a.name));break; case 'newest':f.sort((a,b)=>b.id-a.id);break; case 'popular':f.sort((a,b)=>(b.badge==='Best Seller'?1:0)-(a.badge==='Best Seller'?1:0));break; }
+      return f;
+    }
+
+    function renderProducts(){
+      const filtered=getFilteredProducts();
+      const tp=Math.ceil(filtered.length/perPage);
+      if(currentPage>tp) currentPage=Math.max(1,tp);
+      const start=(currentPage-1)*perPage;
+      const pp=filtered.slice(start,start+perPage);
+      document.getElementById('showing-count').textContent=filtered.length;
+      document.getElementById('total-products').textContent=filtered.length;
+      const gEl=document.getElementById('product-grid'), lEl=document.getElementById('product-list'), nR=document.getElementById('no-results');
+      if(!filtered.length){ gEl.classList.add('hidden'); lEl.classList.add('hidden'); nR.classList.remove('hidden'); document.getElementById('pagination').innerHTML=''; return; }
+      nR.classList.add('hidden');
+
+      gEl.innerHTML=pp.map((p,i)=>`
+        <div class="product-card bg-white rounded-xl sm:rounded-2xl border border-gray-100 overflow-hidden animate-on-scroll stagger-${(i%9)+1}" onclick="openModal(${p.id})">
+          <div class="relative overflow-hidden aspect-square sm:aspect-[4/3] bg-gray-50">
+            <img src="https://picsum.photos/seed/${p.image}/400/400.jpg" alt="${p.name}" class="product-img w-full h-full object-cover" loading="lazy">
+            <div class="product-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent hidden sm:flex items-end p-4">
+              <span class="text-white text-xs font-semibold flex items-center gap-1.5">Lihat Detail <i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+            </div>
+            ${p.badge?`<span class="product-badge-el absolute top-2 left-2 sm:top-3 sm:left-3 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg bg-brand-100 text-brand-700 text-[9px] sm:text-[11px] font-bold uppercase tracking-wide transition-all duration-300">${p.badge}</span>`:''}
+            <button onclick="event.stopPropagation();toggleWishlist(${p.id},this)" class="product-actions absolute top-2 right-2 sm:top-3 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors shadow-sm">
+              <i data-lucide="heart" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+            </button>
+          </div>
+          <div class="p-2.5 sm:p-4 lg:p-5">
+            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded hidden sm:inline-block mb-1.5">${categoryNames[p.category]||p.category}</span>
+            <h3 class="font-bold text-gray-900 text-[11px] sm:text-sm mb-0.5 sm:mb-1.5 line-clamp-2 leading-snug">${p.name}</h3>
+            <p class="text-[10px] sm:text-xs text-gray-400 line-clamp-1 sm:line-clamp-2 leading-relaxed mb-2 sm:mb-3 hidden xs:block">${p.desc}</p>
+            <div class="flex items-center justify-between pt-2 sm:pt-3 border-t border-gray-50">
+              <span class="text-[9px] sm:text-[11px] font-semibold text-gray-400 uppercase tracking-wider">${p.brand}</span>
+              <i data-lucide="chevron-right" class="w-3 h-3 text-gray-300 sm:text-brand-600"></i>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      lEl.innerHTML=pp.map((p,i)=>`
+        <div class="product-card bg-white rounded-xl sm:rounded-2xl border border-gray-100 overflow-hidden flex animate-on-scroll stagger-${(i%9)+1}" onclick="openModal(${p.id})">
+          <div class="relative overflow-hidden w-28 sm:w-48 lg:w-56 flex-shrink-0 bg-gray-50">
+            <img src="https://picsum.photos/seed/${p.image}/300/300.jpg" alt="${p.name}" class="product-img w-full h-full object-cover" loading="lazy">
+            ${p.badge?`<span class="product-badge-el absolute top-2 left-2 px-1.5 py-0.5 rounded bg-brand-100 text-brand-700 text-[9px] font-bold uppercase">${p.badge}</span>`:''}
+          </div>
+          <div class="p-3 sm:p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-1.5 mb-1.5">
+                <span class="text-[9px] font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">${categoryNames[p.category]||p.category}</span>
+                <span class="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">${p.brand}</span>
+              </div>
+              <h3 class="font-bold text-gray-900 text-xs sm:text-sm mb-1">${p.name}</h3>
+              <p class="text-[10px] sm:text-xs text-gray-400 line-clamp-2 leading-relaxed">${p.desc}</p>
+            </div>
+            <div class="flex items-center justify-end mt-2 pt-2 border-t border-gray-50">
+              <span class="text-[10px] sm:text-xs font-semibold text-brand-600 flex items-center gap-1">Detail <i data-lucide="chevron-right" class="w-3 h-3"></i></span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      if(currentView==='grid'){ gEl.classList.remove('hidden'); lEl.classList.add('hidden'); }
+      else { gEl.classList.add('hidden'); lEl.classList.remove('hidden'); }
+      renderPagination(tp);
+      updateActiveFilters();
+      lucide.createIcons();
+      setTimeout(()=>{ document.querySelectorAll('.animate-on-scroll').forEach(el=>{ if(el.getBoundingClientRect().top<window.innerHeight-30) el.classList.add('visible'); }); },30);
+    }
+
+    function renderPagination(tp){
+      if(tp<=1){document.getElementById('pagination').innerHTML='';return;}
+      let h=`<button onclick="goPage(${currentPage-1})" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-xs sm:text-sm ${currentPage===1?'text-gray-300 cursor-not-allowed':'text-gray-600 hover:bg-gray-100'}" ${currentPage===1?'disabled':''}><i data-lucide="chevron-left" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i></button>`;
+      for(let i=1;i<=tp;i++){
+        if(i===1||i===tp||(i>=currentPage-1&&i<=currentPage+1))
+          h+=`<button onclick="goPage(${i})" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-xs sm:text-sm font-semibold transition-all ${i===currentPage?'bg-gradient-to-br from-brand-500 to-brand-600 text-white shadow-md shadow-brand-500/30':'text-gray-600 hover:bg-gray-100'}">${i}</button>`;
+        else if(i===currentPage-2||i===currentPage+2) h+=`<span class="w-8 h-8 flex items-center justify-center text-gray-400 text-xs">...</span>`;
+      }
+      h+=`<button onclick="goPage(${currentPage+1})" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-xs sm:text-sm ${currentPage===tp?'text-gray-300 cursor-not-allowed':'text-gray-600 hover:bg-gray-100'}" ${currentPage===tp?'disabled':''}><i data-lucide="chevron-right" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i></button>`;
+      document.getElementById('pagination').innerHTML=h;
+    }
+
+    function goPage(p){ const f=getFilteredProducts(),tp=Math.ceil(f.length/perPage); if(p<1||p>tp)return; currentPage=p; renderProducts(); document.getElementById('product-grid').scrollIntoView({behavior:'smooth',block:'start'}); }
+
+    function filterCategory(cat,btn){
+      currentCategory=cat; currentPage=1;
+      document.querySelectorAll('#category-list .cat-item').forEach(el=>{el.classList.remove('active');el.classList.add('text-gray-600');el.querySelector('.cat-count').className='cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold';});
+      btn.classList.add('active');btn.classList.remove('text-gray-600');btn.querySelector('.cat-count').className='cat-count text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-semibold';
+      renderProducts(); if(window.innerWidth<1024) closeFilterSidebar();
+    }
+
+    function filterBrand(brand,btn){
+      currentBrand=brand; currentPage=1;
+      document.querySelectorAll('#brand-filters .filter-tag').forEach(el=>el.classList.remove('active'));
+      btn.classList.add('active'); renderProducts(); if(window.innerWidth<1024) closeFilterSidebar();
+    }
+
+    function updateActiveFilters(){
+      const c=document.getElementById('active-filters'),t=document.getElementById('active-filter-tags');
+      let f=[];
+      if(currentCategory!=='semua') f.push({label:categoryNames[currentCategory],type:'category'});
+      if(currentBrand!=='semua') f.push({label:currentBrand.charAt(0).toUpperCase()+currentBrand.slice(1),type:'brand'});
+      if(currentSearch) f.push({label:`"${currentSearch}"`,type:'search'});
+      if(!f.length){c.classList.add('hidden');return;}
+      c.classList.remove('hidden');
+      t.innerHTML=f.map(x=>`<button onclick="removeFilter('${x.type}')" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-brand-50 border border-brand-200 text-[10px] sm:text-xs font-semibold text-brand-700 hover:bg-brand-100 transition-colors">${x.label}<i data-lucide="x" class="w-2.5 h-2.5"></i></button>`).join('');
+      lucide.createIcons();
+    }
+
+    function removeFilter(type){
+      if(type==='category'){currentCategory='semua';document.querySelectorAll('#category-list .cat-item').forEach((el,i)=>{el.classList.remove('active');el.classList.add('text-gray-600');el.querySelector('.cat-count').className='cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold';if(i===0){el.classList.add('active');el.classList.remove('text-gray-600');el.querySelector('.cat-count').className='cat-count text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-semibold';}});}
+      else if(type==='brand'){currentBrand='semua';document.querySelectorAll('#brand-filters .filter-tag').forEach((el,i)=>{el.classList.remove('active');if(i===0)el.classList.add('active');});}
+      else if(type==='search'){currentSearch='';document.getElementById('search-input').value='';}
+      currentPage=1; renderProducts();
+    }
+
+    function clearAllFilters(){
+      currentCategory='semua';currentBrand='semua';currentSearch='';
+      document.getElementById('search-input').value='';
+      document.querySelectorAll('#category-list .cat-item').forEach((el,i)=>{el.classList.remove('active');el.classList.add('text-gray-600');el.querySelector('.cat-count').className='cat-count text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-semibold';if(i===0){el.classList.add('active');el.classList.remove('text-gray-600');el.querySelector('.cat-count').className='cat-count text-[10px] px-1.5 py-0.5 rounded bg-white/20 text-white font-semibold';}});
+      document.querySelectorAll('#brand-filters .filter-tag').forEach((el,i)=>{el.classList.remove('active');if(i===0)el.classList.add('active');});
+      currentPage=1; renderProducts();
+    }
+
+    function setView(v){
+      currentView=v;
+      document.getElementById('view-grid').className=`w-7 h-7 rounded-md flex items-center justify-center transition-all ${v==='grid'?'bg-white shadow-sm text-brand-600':'text-gray-400 hover:text-gray-600'}`;
+      document.getElementById('view-list').className=`w-7 h-7 rounded-md flex items-center justify-center transition-all ${v==='list'?'bg-white shadow-sm text-brand-600':'text-gray-400 hover:text-gray-600'}`;
+      renderProducts();
+    }
+
+    function toggleWishlist(id,btn){
+      const ic=btn.querySelector('[data-lucide]');
+      if(btn.classList.contains('wishlisted')){btn.classList.remove('wishlisted','text-red-500','bg-red-50');btn.classList.add('text-gray-400');ic.setAttribute('data-lucide','heart');ic.style.fill='none';}
+      else{btn.classList.add('wishlisted','text-red-500','bg-red-50');btn.classList.remove('text-gray-400');ic.style.fill='currentColor';showToast('Ditambahkan ke wishlist');}
+      lucide.createIcons();
+    }
+
+    function openModal(id){
+      const p=products.find(x=>x.id===id);if(!p)return;
+      document.getElementById('modal-image').src=`https://picsum.photos/seed/${p.image}/1200/700.jpg`;
+      document.getElementById('modal-name').textContent=p.name;
+      document.getElementById('modal-category').textContent=categoryNames[p.category];
+      document.getElementById('modal-brand').textContent=p.brand.toUpperCase();
+      document.getElementById('modal-desc').textContent=p.desc;
+      document.getElementById('modal-badge').textContent=p.badge||categoryNames[p.category];
+      document.getElementById('modal-specs').innerHTML=p.specs.map(s=>`<div class="flex items-center justify-between py-2.5 px-3 sm:py-3 sm:px-4 rounded-lg sm:rounded-xl bg-gray-50 border border-gray-100"><span class="text-[10px] sm:text-xs font-semibold text-gray-500">${s.label}</span><span class="text-xs sm:text-sm font-bold text-gray-900">${s.value}</span></div>`).join('');
+      document.getElementById('modal-features').innerHTML=p.features.map(f=>`<div class="flex items-center gap-2.5 py-2"><div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-brand-100 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-brand-600"></i></div><span class="text-xs sm:text-sm text-gray-600">${f}</span></div>`).join('');
+      document.getElementById('product-modal').classList.add('open');
+      document.body.style.overflow='hidden';
+      lucide.createIcons();
+    }
+
+    function closeModal(){document.getElementById('product-modal').classList.remove('open');document.body.style.overflow='';}
+    document.getElementById('product-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+    function showToast(msg){
+      const c=document.getElementById('toast-container'),t=document.createElement('div');
+      t.className='toast bg-brand-600 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 min-w-[220px]';
+      t.style.animation='slideDown 0.4s ease forwards';
+      t.innerHTML=`<i data-lucide="check-circle" class="w-4 h-4 flex-shrink-0"></i><span class="text-xs font-medium">${msg}</span>`;
+      c.appendChild(t);lucide.createIcons();
+      setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(80px)';t.style.transition='all 0.3s ease';setTimeout(()=>t.remove(),300);},2500);
+    }
+
+    document.getElementById('filter-toggle-mobile').addEventListener('click',()=>{document.getElementById('filter-sidebar').classList.add('open');document.getElementById('filter-overlay').classList.remove('hidden');document.body.style.overflow='hidden';});
+    function closeFilterSidebar(){document.getElementById('filter-sidebar').classList.remove('open');document.getElementById('filter-overlay').classList.add('hidden');document.body.style.overflow='';}
+
+    document.getElementById('nav-toggle').addEventListener('click',()=>{document.getElementById('mobile-menu').classList.add('open');document.getElementById('mobile-overlay').classList.add('open');document.body.style.overflow='hidden';});
+    document.getElementById('menu-close').addEventListener('click',()=>{document.getElementById('mobile-menu').classList.remove('open');document.getElementById('mobile-overlay').classList.remove('open');document.body.style.overflow='';});
+    document.getElementById('mobile-overlay').addEventListener('click',()=>{document.getElementById('mobile-menu').classList.remove('open');document.getElementById('mobile-overlay').classList.remove('open');document.body.style.overflow='';});
+
+    let st;document.getElementById('search-input').addEventListener('input',function(){clearTimeout(st);st=setTimeout(()=>{currentSearch=this.value.trim();currentPage=1;renderProducts();},250);});
+    document.getElementById('sort-select').addEventListener('change',function(){currentSort=this.value;currentPage=1;renderProducts();});
+    window.addEventListener('scroll',()=>{document.getElementById('back-to-top').classList.toggle('show',window.scrollY>300);});
+    document.getElementById('back-to-top').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
+    function observeEl(){document.querySelectorAll('.animate-on-scroll:not(.visible)').forEach(el=>obs.observe(el));}
+
+    document.addEventListener('DOMContentLoaded',()=>{lucide.createIcons();renderProducts();observeEl();});
+  </script>
+</body>
+</html>
